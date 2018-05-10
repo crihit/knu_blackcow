@@ -22,7 +22,7 @@ void equation(element *store){
 
 void parabola(element store,int pos_X,int pos_Y,char bomb){
     int posX=pos_X,posY=pos_Y,i,temp;
-    
+    int lateX, lateY;
     for(i=store.b;i<=-store.b;i++){
         
         temp=store.a*(i-store.b)*(i+store.b);
@@ -32,8 +32,12 @@ void parabola(element store,int pos_X,int pos_Y,char bomb){
         //addch(' ');
         move(posY, posX);
         addch(bomb);
-        move(posY, posX);
+        //move(posY, posX);
+        move(LINES-1,COLS-1);
         refresh();
+        move(posY, posX);
+        addch(' ');
+        move(posY, posX);
         usleep(30000-store.power*500+10000*sqrt(temp));
     }
 }
@@ -45,6 +49,8 @@ int main(void)
     int posX, posY;
     element store;
     
+    printf("Input angle and power : ");
+    scanf("%f %f",&store.angle,&store.power);
     initscr();
     clear();
     posX = 5;
@@ -66,13 +72,12 @@ int main(void)
      posY=LINES-5-(int)temp;
      }*/
     
-    scanf("%f %f",&store.angle,&store.power);
     equation(&store);
     
     move(posY, posX);
     
     parabola(store, posX, posY, bomb);
-    
+    endwin();
     return 0;
 }
 
