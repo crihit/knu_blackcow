@@ -41,7 +41,7 @@ void parabola(element store,int pos_X,int pos_Y,char bomb){
             addch(bomb);
             move(posY, posX);
             refresh();
-            usleep(40000-store.power*500);
+            usleep(40000-store.power*1000*pow(cos(store.angle*PI/180.0),2));
         }
     }
     else{
@@ -60,7 +60,7 @@ void parabola(element store,int pos_X,int pos_Y,char bomb){
             addch(bomb);
             move(posY, posX);
             refresh();
-            usleep(40000-store.power*500);
+            usleep(40000-store.power*1000*pow(cos(store.angle*PI/180.0),2));
         }
         
     }
@@ -98,10 +98,12 @@ int main(void)
     endwin();
     
     printf("coeffient a:%f coeffient b:%f angle:%f power:%f ",store.a,store.b,store.angle,store.power);
+    printf("speed : %f ",40000-store.power*500*cos(store.angle*PI/180.0));
     if(store.direction==1)
         printf("direction:Left \n");
     else
         printf("direction:Right \n");
+    
     return 0;
 }
 
