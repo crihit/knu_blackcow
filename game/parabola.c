@@ -16,7 +16,6 @@ void get_screen(int posX,int posY){ //map배열에서 map[posY][posX]부터 스�
             addch(map[i+posY][j+posX]);
         }
     }
-    refresh();
 }
 
 void move_screen(int command,int *posX,int *posY){//ikjl 상하좌우로 스크린 이동
@@ -38,7 +37,9 @@ void equation(element *store){//포물선 함수
 
 
 void parabola(element store,int pos_X,int pos_Y,char bomb){
-    int posX=pos_X,posY=pos_Y,i,temp,speed;
+    //mposX=5;
+    int posX=pos_X,posY=pos_Y;//map[i][j]에서의 posY,posX값
+    int i,temp,speed;
     
     speed=40000-store.power*1000*pow(cos(store.angle*PI/180.0),2);
     
@@ -50,27 +51,42 @@ void parabola(element store,int pos_X,int pos_Y,char bomb){
             
             temp=store.a*(i-store.b)*(i+store.b);//포물선 높이
             //addch(' ');   //잔상 안보이게 하기
+            
+            if(posX-COLS/2>0 && posX+COLS/2<100/*MAPSIZE*/){
+                move_screen('l', &mposX, &mposY);
+            }
+            
+            get_screen(mposX, mposY);
             posX++;
-            if(posX<=0||posX>=COLS)//화면 벗어나면 종료
+            
+            if(posX<=0||posX>=100/*MAPSIZE*/)//화면 벗어나면 종료
                 return;
             
             if(posY<pos_Y-temp){
-                for(;posY<pos_Y-temp;posY++)
-                    if(posY<=0||posY>=LINES||mvinch(posY, posX)=='*')//화면 벗어나거나 땅에 닿으면 종료
+                for(;posY<pos_Y-temp;posY++){
+                    if(posY<=0||posY>=70/*MAPSIZE*/||mvinch(posY-mposY, posX-mposX)=='*')//화면 벗어나거나 땅에 닿으면 종료
                         return;
+                    if(posY-LINES/2>0 && posY+LINES/2<70/*MAPSIZE*/){
+                        move_screen('k', &mposX, &mposY);
+                    }
+                }
             }
             else{
-                for(;posY>pos_Y-temp;posY--)
-                    if(posY<=0||posY>=LINES||mvinch(posY, posX)=='*')
+                for(;posY>pos_Y-temp;posY--){
+                    if(posY<=0||posY>=70/*MAPSIZE*/||mvinch(posY-mposY, posX-mposX)=='*')
                         return;
+                    if(posY-LINES/2>0 && posY+LINES/2<70/*MAPSIZE*/){
+                        move_screen('i', &mposX, &mposY);
+                    }
+                }
             }
-
-            addch(' ');
-            move(posY, posX);
+            get_screen(mposX, mposY);
+            //addch(' ');
+            move(posY-mposY, posX-mposX);
             if(inch()=='*')
                 return;
             addch(bomb);
-            move(posY, posX);
+            //move(posY, posX);
             refresh();
             usleep(speed);
         }
@@ -80,26 +96,39 @@ void parabola(element store,int pos_X,int pos_Y,char bomb){
             
             temp=store.a*(i-store.b)*(i+store.b);
             //addch(' ');
+            
+            if(posX-COLS/2>0 && posX+COLS/2<100/*MAPSIZE*/){
+                move_screen('j', &mposX, &mposY);
+            }
+            get_screen(mposX, mposY);
             posX--;
-            if(posX<=0||posX>=COLS)
+            if(posX<=0||posX>=100/*MAPSIZE*/)
                 return;
             if(posY<pos_Y-temp){
-                for(;posY<pos_Y-temp;posY++)
-                    if(posY<=0||posY>=LINES||mvinch(posY, posX)=='*')
+                for(;posY<pos_Y-temp;posY++){
+                    if(posY<=0||posY>=70/*MAPSIZE*/||mvinch(posY-mposY, posX-mposX)=='*')
                         return;
+                    if(posY-LINES/2>0 && posY+LINES/2<70/*MAPSIZE*/){
+                        move_screen('k', &mposX, &mposY);
+                    }
+                }
             }
             else{
-                for(;posY>pos_Y-temp;posY--)
-                    if(posY<=0||posY>=LINES||mvinch(posY, posX)=='*')
+                for(;posY>pos_Y-temp;posY--){
+                    if(posY<=0||posY>=70/*MAPSIZE*/||mvinch(posY-mposY, posX-mposX)=='*')
                         return;
+                    if(posY-LINES/2>0 && posY+LINES/2<70/*MAPSIZE*/){
+                        move_screen('i', &mposX, &mposY);
+                    }
+                }
             }
-
-
-            move(posY, posX);
+            
+            get_screen(mposX, mposY);
+            move(posY-mposY, posX-mposX);
             if(inch()=='*')
                 return;
             addch(bomb);
-            move(posY, posX);
+            //move(posY, posX);
             refresh();
             usleep(speed);
         }

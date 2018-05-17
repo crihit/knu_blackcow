@@ -21,3 +21,4 @@ void parabola(element store,int pos_X,int pos_Y,char bomb);
 
 int map[1000][1000];
 
+extern int mposX,mposY;

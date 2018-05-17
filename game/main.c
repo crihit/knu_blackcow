@@ -13,7 +13,21 @@
 #include <stdlib.h>
 #include "main.h"
 
+int mposY=0,mposX=0;
 
+void set_mpos(int posX,int posY){
+    if(posY-LINES<0)
+        mposY=0;
+    else
+        mposY=posY-LINES;
+    if(posX-COLS/2<0)
+        mposX=0;
+    else if(posX+COLS/2>100){
+        mposX=100-COLS;
+    }
+    else
+        mposX=posX-COLS/2;
+}
 
 int main(void)
 {
@@ -22,7 +36,7 @@ int main(void)
     int posX, posY;
     float speed;
     element store;
-    int command,i,j,k,mposX=0,mposY=0;
+    int command,i,j,k;
     char c;
     FILE *fp;
     
@@ -44,7 +58,7 @@ int main(void)
             fread(&c, sizeof(char), 1, fp);
         }
     
-
+    
     
     speed=40000-store.power*1000*pow(cos(store.angle*PI/180.0),2);
     
@@ -57,23 +71,26 @@ int main(void)
     
     clear();
     
-    get_screen(mposX, mposY);
     if(store.direction==0)
         posX = 5;
     else
-        posX = COLS-5;
+        posX = 100-5;
     posY = 20;
     
     move(posY, posX);
     
-    while(inch()==' '){
-        move(++posY,posX);
+    while(map[posY][posX]==' '){
+        posY++;
     }
     
-    while(inch()=='*'){
-        move(--posY, posX);
+    while(map[posY][posX]=='*'){
+        posY--;
     }
     
+    set_mpos(posX, posY);
+    
+    get_screen(mposX, mposY);
+    refresh();
     
     if(store.power>60)
         store.power=60;
@@ -86,7 +103,7 @@ int main(void)
     endwin();
     
     printf("coeffient a:%f coeffient b:%f angle:%f power:%f ",store.a,store.b,store.angle,store.power);
-    printf("speed : %f posX : %d posY : %d %d %d %c",speed,posX,posY,COLS,LINES,inch());
+    printf("speed : %f posX : %d posY : %d Col: %d LINE : %d mapX: %d mapY: %d",speed,posX,posY,COLS,LINES,mposX,mposY);
     if(store.direction==1)
         printf("direction:Left \n");
     else
