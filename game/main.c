@@ -16,10 +16,12 @@
 int mposY=0,mposX=0;
 
 void set_mpos(int posX,int posY){
-    if(posY-LINES<0)
+    if(posY+5>70)
+        mposY=70-LINES;
+    else if(posY+5-LINES<0)
         mposY=0;
     else
-        mposY=posY-LINES;
+        mposY=posY+5-LINES;
     if(posX-COLS/2<0)
         mposX=0;
     else if(posX+COLS/2>100){
