@@ -13,7 +13,7 @@
 #include <stdlib.h>
 #include "main.h"
 
-int mposY=0,mposX=0;
+int mposY=0,mposX=0,msizeX=0,msizeY=0;
 
 void set_mpos(int posX,int posY){
     if(posY+5>70)
@@ -38,7 +38,7 @@ int main(void)
     int posX, posY;
     float speed;
     element store;
-    int command,i,j,k;
+    int command,i,j;
     char c;
     FILE *fp;
     
@@ -46,19 +46,24 @@ int main(void)
     printf("input angle power direction(Left:1,Right:0) : ");
     scanf("%f %f %d",&store.angle,&store.power,&store.direction);
     
-    if((fp=fopen("map3.bin", "rb"))==NULL){
+    if(store.angle>=90){
+        store.angle=89.0;
+    }
+    
+    if((fp=fopen("map3.txt", "r"))==NULL){
         printf("cannot find map.txt");
         exit(1);
     }
     
-    for(k=0;k<7;k++)
-        for(i=0;i<10;i++){
-            for(j=0;j<100;j++){
-                fread(&c,sizeof(char),1,fp);
-                map[i+k*10][j]=c;
-            }
-            fread(&c, sizeof(char), 1, fp);
+    fscanf(fp, "%d %d\n",&msizeX,&msizeY);
+    
+    for(i=0;i<msizeY;i++){
+        for(j=0;j<msizeX;j++){
+            c=fgetc(fp);
+            map[i][j]=c;
         }
+        fgetc(fp);
+    }
     
     
     
@@ -72,11 +77,12 @@ int main(void)
     set_nodelay_mode();
     
     clear();
+   //startmenu();
     
     if(store.direction==0)
         posX = 5;
     else
-        posX = 100-5;
+        posX = msizeX-5;
     posY = 20;
     
     move(posY, posX);
@@ -98,8 +104,6 @@ int main(void)
         store.power=60;
     
     equation(&store);
-    
-    
     parabola(store, posX, posY, bomb);
     
     endwin();

@@ -18,7 +18,7 @@ void get_screen(int posX,int posY);
 void move_screen(int command,int *posX,int *posY);
 void equation(element *store);
 void parabola(element store,int pos_X,int pos_Y,char bomb);
-
+void startmenu();
 int map[1000][1000];
 
-extern int mposX,mposY;
+extern int mposX,mposY,msizeX,msizeY;
