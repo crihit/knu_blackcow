@@ -46,6 +46,12 @@ int main(void)
     printf("input angle power direction(Left:1,Right:0) : ");
     scanf("%f %f %d",&store.angle,&store.power,&store.direction);
     
+    while(store.angle > 180){
+        printf("Please input right correct number\n");
+        printf("input angle power direction(Left:1,Right:0) : ");
+        scanf("%f %f %d",&store.angle,&store.power,&store.direction);
+    }
+    
     if((fp=fopen("map3.bin", "rb"))==NULL){
         printf("cannot find map.txt");
         exit(1);
