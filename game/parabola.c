@@ -13,7 +13,7 @@ void get_screen(int posX,int posY){ //map배열에서 map[posY][posX]부터 스�
     for(i=0;i<LINES;i++){
         for(j=0;j<COLS;j++){
             move(i,j);
-            if(i+posY>=msizeY||j+posX>=msizeX)//오류수정
+            if(i+posY>=msizeY||j+posX>=msizeX||i+posY<0||j+posX<0)//오류수정
                 addch(' ');
             else
                 addch(map[i+posY][j+posX]);

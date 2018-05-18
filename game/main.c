@@ -16,16 +16,18 @@
 int mposY=0,mposX=0,msizeX=0,msizeY=0;
 
 void set_mpos(int posX,int posY){
-    if(posY+5>70)
-        mposY=70-LINES;
+    if(posY+5>=msizeY)
+        mposY=msizeY-LINES;
     else if(posY+5-LINES<0)
         mposY=0;
     else
         mposY=posY+5-LINES;
-    if(posX-COLS/2<0)
+    if(COLS>msizeX)
         mposX=0;
-    else if(posX+COLS/2>100){
-        mposX=100-COLS;
+    else if(posX-COLS/2<0)
+        mposX=0;
+    else if(posX+COLS/2>msizeX){
+        mposX=msizeX-COLS;
     }
     else
         mposX=posX-COLS/2;
@@ -46,21 +48,11 @@ int main(void)
     printf("input angle power direction(Left:1,Right:0) : ");
     scanf("%f %f %d",&store.angle,&store.power,&store.direction);
     
-<<<<<<< HEAD
     if(store.angle>=90){
         store.angle=89.0;
     }
     
     if((fp=fopen("map3.txt", "r"))==NULL){
-=======
-    while(store.angle > 180){
-        printf("Please input right correct number\n");
-        printf("input angle power direction(Left:1,Right:0) : ");
-        scanf("%f %f %d",&store.angle,&store.power,&store.direction);
-    }
-    
-    if((fp=fopen("map3.bin", "rb"))==NULL){
->>>>>>> fb38a589ba719399eb8d0b010d0b2b00e619681d
         printf("cannot find map.txt");
         exit(1);
     }
@@ -87,7 +79,7 @@ int main(void)
     set_nodelay_mode();
     
     clear();
-   //startmenu();
+    //startmenu();
     
     if(store.direction==0)
         posX = 5;
