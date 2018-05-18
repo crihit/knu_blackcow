@@ -15,8 +15,9 @@ void get_screen(int posX,int posY){ //map배열에서 map[posY][posX]부터 스�
             move(i,j);
             if(i+posY>=msizeY||j+posX>=msizeX||i+posY<0||j+posX<0)//오류수정
                 addch(' ');
-            else
+            else{
                 addch(map[i+posY][j+posX]);
+            }
         }
     }
 }
@@ -66,7 +67,7 @@ void parabola(element store,int pos_X,int pos_Y,char bomb){
             
             if(posY<pos_Y-temp){
                 for(;posY<pos_Y-temp;posY++){
-                    if(posY<=0||posY>=msizeY||mvinch(posY-mposY, posX-mposX)=='*')//화면 벗어나거나 땅에 닿으면 종료
+                    if(posY<=0||posY>=msizeY||map[posY][posX]=='*')//화면 벗어나거나 땅에 닿으면 종료
                         return;
                     if(posY-LINES/2>0 && posY+LINES/2<msizeY){
                         move_screen('k', &mposX, &mposY);
@@ -75,7 +76,7 @@ void parabola(element store,int pos_X,int pos_Y,char bomb){
             }
             else{
                 for(;posY>pos_Y-temp;posY--){
-                    if(posY<=0||posY>=msizeY||mvinch(posY-mposY, posX-mposX)=='*')
+                    if(posY<=0||posY>=msizeY||map[posY][posX]=='*')
                         return;
                     if(posY-LINES/2>0 && posY+LINES/2<msizeY){
                         move_screen('i', &mposX, &mposY);
@@ -84,7 +85,7 @@ void parabola(element store,int pos_X,int pos_Y,char bomb){
             }
             get_screen(mposX, mposY);
             move(posY-mposY, posX-mposX);
-            if(inch()=='*')
+            if(map[posY][posX]=='*')
                 return;
             addch(bomb);
             refresh();
@@ -105,7 +106,7 @@ void parabola(element store,int pos_X,int pos_Y,char bomb){
                 return;
             if(posY<pos_Y-temp){
                 for(;posY<pos_Y-temp;posY++){
-                    if(posY<=0||posY>=msizeY||mvinch(posY-mposY, posX-mposX)=='*')
+                    if(posY<=0||posY>=msizeY||map[posY][posX]=='*')
                         return;
                     if(posY-LINES/2>0 && posY+LINES/2<msizeY){
                         move_screen('k', &mposX, &mposY);
@@ -114,7 +115,7 @@ void parabola(element store,int pos_X,int pos_Y,char bomb){
             }
             else{
                 for(;posY>pos_Y-temp;posY--){
-                    if(posY<=0||posY>=msizeY||mvinch(posY-mposY, posX-mposX)=='*')
+                    if(posY<=0||posY>=msizeY||map[posY][posX]=='*')
                         return;
                     if(posY-LINES/2>0 && posY+LINES/2<msizeY){
                         move_screen('i', &mposX, &mposY);
@@ -124,7 +125,7 @@ void parabola(element store,int pos_X,int pos_Y,char bomb){
             
             get_screen(mposX, mposY);
             move(posY-mposY, posX-mposX);
-            if(inch()=='*')
+            if(map[posY][posX]=='*')
                 return;
             addch(bomb);
             refresh();
