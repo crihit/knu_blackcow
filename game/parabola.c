@@ -49,11 +49,15 @@ void erase_map(int posY, int posX){
             map[i][j] = '@';
     }
     
+    refresh();
+    sleep(1);
+    
     for(i = posY-1; i <= posY+1; i++){
         for(j = posX - 1; j<= posY-1; j++)
-            map[i][j] = 0;
+            map[i][j] = ' ';
     }
     
+    refresh();
     sleep(1);
     
     return;
