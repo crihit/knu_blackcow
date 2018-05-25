@@ -68,7 +68,7 @@ void equation(element *store){//포물선 함수
 }
 
 void erase_map(int posY, int posX){
-
+    
     int i;
     int j;
     
@@ -76,13 +76,16 @@ void erase_map(int posY, int posX){
         for(j = posX - 1; j<= posY-1; j++)
             map[i][j] = '@';
     }
+    
     refresh();
-    usleep(500000);
+    sleep(1);
+    
     for(i = posY-1; i <= posY+1; i++){
         for(j = posX - 1; j<= posY-1; j++)
-            map[i][j] = 0;
+            map[i][j] = ' ';
     }
     
+    refresh();
     sleep(1);
     
     return;
