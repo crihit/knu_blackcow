@@ -41,17 +41,17 @@ int main(void)
     int posX, posY;
     float speed;
     element store;
-    int command,i,j;
+    int i,j;
     char c;
     FILE *fp;
     
-    
-    printf("input angle power direction(Left:1,Right:0) : ");
+    store.angle=store.power=1;
+    /*printf("input angle power direction(Left:1,Right:0) : ");
     scanf("%f %f %d",&store.angle,&store.power,&store.direction);
     
     if(store.angle>=90){
         store.angle=89.0;
-    }
+    }*/
     
     if((fp=fopen("map3.txt", "r"))==NULL){
         printf("cannot find map.txt");
@@ -121,26 +121,26 @@ int main(void)
     }
     refresh();
     
-    if(store.direction==0)
+    /*if(store.direction==0)
     {
         posX = p1[1];
         posY = p1[0];
     }
-    else
+    else*/
     {
         posX = p2[1];
         posY = p2[0];
     }
     move(posY, posX);
     
-    while(map[posY][posX]==' '){
+    /*while(map[posY][posX]==' '){
         posY++;
     }
     
     while(map[posY][posX]=='#'){
         posY--;
     }
-    
+    */
     set_mpos(posX, posY);
     
     get_screen(mposX, mposY,msizeX,msizeY);
@@ -149,9 +149,10 @@ int main(void)
     if(store.power>60)
         store.power=60;
     
+    move_char(&posX,&posY,&store.direction);
+    set_angle_power(posX, posY, &store);
     equation(&store);
     parabola(store, posX, posY-1, bomb);
-    
     endwin();
     
     printf("coeffient a:%f coeffient b:%f angle:%f power:%f ",store.a,store.b,store.angle,store.power);

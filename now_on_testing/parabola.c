@@ -73,12 +73,17 @@ void erase_map(int posX, int posY){
     for(k=0;k<10;k++){
         for(i = posY-k; i <= posY+k; i++){
             for(j = posX - k; j<= posX+k; j++){
+                if(i<=0||i>=msizeY||j<0||j>=msizeX)
+                    break;
                 map[i][j] = '@';
             }
         }
         for(i = posY-(k-1); i <= posY+(k-1); i++){
-            for(j = posX - (k-1); j<= posX+(k-1); j++)
+            for(j = posX - (k-1); j<= posX+(k-1); j++){
+                if(i<=0||i>=msizeY||j<0||j>=msizeX)
+                    break;
                 map[i][j] = ' ';
+            }
         }
         get_screen(mposX, mposY, msizeX, msizeY);
         refresh();
@@ -122,7 +127,7 @@ void parabola(element store,int pos_X,int pos_Y,char bomb){
             
             if(posY<pos_Y-temp){
                 for(;posY<pos_Y-temp;posY++){
-                    if(posY<=0||posY>=msizeY)//화면 벗어나거나 땅에 닿으면 종료
+                    if(posY<=1||posY>=msizeY)//화면 벗어나거나 땅에 닿으면 종료
                         return;
                     if(map[posY][posX]=='#'){
                         erase_map(posX,posY);
@@ -135,7 +140,7 @@ void parabola(element store,int pos_X,int pos_Y,char bomb){
             }
             else{
                 for(;posY>pos_Y-temp;posY--){
-                    if(posY<=0||posY>=msizeY)
+                    if(posY<=1||posY>=msizeY)
                         return;
                     if(map[posY][posX]=='#'){
                         erase_map(posX,posY);
@@ -184,8 +189,13 @@ void parabola(element store,int pos_X,int pos_Y,char bomb){
             }
             else{
                 for(;posY>pos_Y-temp;posY--){
-                    if(posY<=1||posY>=msizeY||map[posY][posX]=='#')
+                    if(posY<=1||posY>=msizeY)
                         return;
+                    if(map[posY][posX]=='#'){
+                        erase_map(posX,posY);
+                        return;
+                    }
+
                     if(posY-MAP_Y/2>0 && posY+MAP_Y/2<msizeY){
                         move_screen('i', &mposX, &mposY,msizeX,msizeY);
                     }

@@ -23,5 +23,7 @@ void parabola(element store,int pos_X,int pos_Y,char bomb);
 void startmenu();
 int map[1000][1000];
 void set_mpos(int,int);
+void move_char(int *posX, int *posY,int *direct);
+void set_angle_power(int posX,int posY,element *store);
 
 extern int mposX,mposY,msizeX,msizeY;
