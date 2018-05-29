@@ -44,7 +44,7 @@ void move_char(int *posX, int *posY,int *direct){
         if((command=get_ok_char())!=EOF){
             if(command=='a')
                 break;
-            if(*posX-MAP_X/2>0 && *posX+MAP_X/2<msizeX){
+            if(*posX-MAP_X/2>0 && *posX+MAP_X/2<msizeX&&strchr("jl",command)!=NULL){
                 move_screen(command, &mposX, &mposY,msizeX,msizeY);
             }
             if(command=='l'&&touch_rectangle(3,2, *posX, *posY,0)){
