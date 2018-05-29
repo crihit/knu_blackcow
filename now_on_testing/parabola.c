@@ -8,19 +8,19 @@
 #include "main.h"
 
 /*void get_screen(int posX,int posY){ //map배열에서 map[posY][posX]부터 스크린 전체가 꽉찰때까지 스캔
-    int i,j;
-    
-    for(i=0;i<LINES;i++){
-        for(j=0;j<COLS;j++){
-            move(i,j);
-            if(i+posY>=msizeY||j+posX>=msizeX||i+posY<0||j+posX<0)//오류수정
-                addch(' ');
-            else{
-                addch(map[i+posY][j+posX]);
-            }
-        }
-    }
-}*/
+ int i,j;
+ 
+ for(i=0;i<LINES;i++){
+ for(j=0;j<COLS;j++){
+ move(i,j);
+ if(i+posY>=msizeY||j+posX>=msizeX||i+posY<0||j+posX<0)//오류수정
+ addch(' ');
+ else{
+ addch(map[i+posY][j+posX]);
+ }
+ }
+ }
+ }*/
 
 void get_screen(int posX,int posY,int xSize, int ySize){
     int i,j;
@@ -38,16 +38,16 @@ void get_screen(int posX,int posY,int xSize, int ySize){
 }
 
 /*void move_screen(int command,int *posX,int *posY){//ikjl 상하좌우로 스크린 이동
-    if(command=='i'&&*posY>0)
-        (*posY)--;
-    if(command=='j'&&*posX>0)
-        (*posX)--;
-    if(command=='l'&&msizeX-*posX>COLS)
-        (*posX)++;
-    if(command=='k'&&msizeY-*posY>LINES)
-        (*posY)++;
-    
-}*/
+ if(command=='i'&&*posY>0)
+ (*posY)--;
+ if(command=='j'&&*posX>0)
+ (*posX)--;
+ if(command=='l'&&msizeX-*posX>COLS)
+ (*posX)++;
+ if(command=='k'&&msizeY-*posY>LINES)
+ (*posY)++;
+ 
+ }*/
 
 void move_screen(int command,int *posX,int *posY, int mapX, int mapY){
     if(command=='i'&&*posY>0)
@@ -171,7 +171,7 @@ void parabola(element store,int pos_X,int pos_Y,char bomb){
                 return;
             if(posY<pos_Y-temp){
                 for(;posY<pos_Y-temp;posY++){
-                    if(posY<=0||posY>=msizeY)
+                    if(posY<=1||posY>=msizeY)
                         return;
                     if(map[posY][posX]=='#'){
                         erase_map(posX,posY);
@@ -184,7 +184,7 @@ void parabola(element store,int pos_X,int pos_Y,char bomb){
             }
             else{
                 for(;posY>pos_Y-temp;posY--){
-                    if(posY<=0||posY>=msizeY||map[posY][posX]=='#')
+                    if(posY<=1||posY>=msizeY||map[posY][posX]=='#')
                         return;
                     if(posY-MAP_Y/2>0 && posY+MAP_Y/2<msizeY){
                         move_screen('i', &mposX, &mposY,msizeX,msizeY);

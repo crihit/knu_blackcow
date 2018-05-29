@@ -17,9 +17,9 @@ int mposY=0,mposX=0,msizeX=0,msizeY=0;
 int p1[2], p2[2];
 
 void set_mpos(int posX,int posY){
-    if(posY+5>=msizeY)
+    if(posY+MAP_Y/2>=msizeY)
         mposY=msizeY-MAP_Y;
-    else if(posY+5-MAP_Y<0)
+    else if(posY+5-MAP_Y/2<0)
         mposY=0;
     else
         mposY=posY+5-MAP_Y/2;
@@ -150,7 +150,7 @@ int main(void)
         store.power=60;
     
     equation(&store);
-    parabola(store, posX, posY, bomb);
+    parabola(store, posX, posY-1, bomb);
     
     endwin();
     
