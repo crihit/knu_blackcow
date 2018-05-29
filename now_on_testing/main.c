@@ -22,7 +22,7 @@ void set_mpos(int posX,int posY){
     else if(posY+5-MAP_Y<0)
         mposY=0;
     else
-        mposY=posY+5-MAP_Y;
+        mposY=posY+5-MAP_Y/2;
     if(MAP_X>msizeX)
         mposX=0;
     else if(posX-MAP_X/2<0)

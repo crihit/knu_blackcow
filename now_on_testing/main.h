@@ -22,5 +22,6 @@ void equation(element *store);
 void parabola(element store,int pos_X,int pos_Y,char bomb);
 void startmenu();
 int map[1000][1000];
+void set_mpos(int,int);
 
 extern int mposX,mposY,msizeX,msizeY;

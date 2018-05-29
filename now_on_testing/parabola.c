@@ -67,27 +67,30 @@ void equation(element *store){//포물선 함수
     store->a=tan(store->angle*PI/180.0)/2/store->b;
 }
 
-void erase_map(int posY, int posX){
+void erase_map(int posX, int posY){
     
-    int i;
-    int j;
-    
-    for(i = posY-1; i <= posY+1; i++){
-        for(j = posX - 1; j<= posY-1; j++)
-            map[i][j] = '@';
+    int i,j,k;
+    for(k=0;k<10;k++){
+        for(i = posY-k; i <= posY+k; i++){
+            for(j = posX - k; j<= posX+k; j++){
+                map[i][j] = '@';
+            }
+        }
+        for(i = posY-(k-1); i <= posY+(k-1); i++){
+            for(j = posX - (k-1); j<= posX+(k-1); j++)
+                map[i][j] = ' ';
+        }
+        get_screen(mposX, mposY, msizeX, msizeY);
+        refresh();
+        usleep(100000);
     }
-    
-    refresh();
-    sleep(1);
-    
-    for(i = posY-1; i <= posY+1; i++){
-        for(j = posX - 1; j<= posY-1; j++)
+    for(i = posY-k; i <= posY+k; i++){
+        for(j = posX - k; j<= posX+k; j++)
             map[i][j] = ' ';
     }
-    
+    get_screen(mposX, mposY, msizeX, msizeY);
     refresh();
     sleep(1);
-    
     return;
 }
 
