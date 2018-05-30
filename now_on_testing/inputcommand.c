@@ -24,44 +24,93 @@ void add_rectangle(int Xlength,int Ylength,int posX,int posY,int input){
 int touch_rectangle(int Xlength,int Ylength,int posX,int posY,int direct){
     int i;
     if(direct==0){
-        for(i=0;i<Ylength;i++)
+        for(i=0;i<Ylength-1;i++)
         if(map[posY-1+i][posX+Xlength-1]=='#')
             return 0;
     }
     else{
-        for(i=0;i<Ylength;i++)
+        for(i=0;i<Ylength-1;i++)
         if(map[posY-1+i][posX-2]=='#')
             return 0;
     }
     return 1;
 }
 
+void if_climb(int Xlength,int Ylength,int *posX,int *posY,int direct){
+    if(direct==0){
+        if(map[*posY+Ylength-2][*posX+Xlength-1]=='#')
+            (*posY)--;
+    }
+    else{
+        if(map[*posY+Ylength-2][*posX-2]=='#')
+            (*posY)--;
+    }
+}
+
+void if_descent(int Xlength,int Ylength,int *posX,int *posY){
+    int i;
+    while(1){
+        for(i=-1;i<=Xlength-2;i++){
+            if(map[*posY+Ylength-1][*posX+i]=='#'){
+                return;
+            }
+        }
+        add_rectangle(3, 2,*posX,*posY,' ');
+        (*posY)++;
+        add_rectangle(3, 2,*posX,*posY,'o');
+        refresh();
+        usleep(50000);
+        set_mpos(*posX, *posY);
+        if(*posY>=msizeY){
+            endwin();
+            exit(1);
+        }
+    }
+}
+
 void move_char(int *posX, int *posY,int *direct){
     int command;
-    
-    add_rectangle(3, 2,*posX,*posY,'o');
+    int x,y;
+
+    //make_edge();
     while(1){
+        get_screen(mposX, mposY, msizeX, msizeY);
+        getyx(curscr, y, x);
+        if(y==MAP_Y+1&&x==MAP_X+1)
+            continue;
+        add_rectangle(3, 2,*posX,*posY,'o');
+        move(*posY-mposY, *posX-mposX);
         if((command=get_ok_char())!=EOF){
             if(command=='a')
                 break;
-            if(*posX-MAP_X/2>0 && *posX+MAP_X/2<msizeX&&strchr("jl",command)!=NULL){
-                move_screen(command, &mposX, &mposY,msizeX,msizeY);
-            }
+
             if(command=='l'&&touch_rectangle(3,2, *posX, *posY,0)){
+                if(*posX-MAP_X/2>0 && *posX+MAP_X/2<msizeX){
+                    move_screen(command, &mposX, &mposY,msizeX,msizeY);
+                }
                 add_rectangle(3, 2,*posX,*posY,' ');
+                if_climb(3, 2, posX, posY, 0);
                 (*posX)++;
+                if_descent(3, 2, posX, posY);
                 *direct=0;
                 add_rectangle(3, 2,*posX,*posY,'o');
+                move(*posY-mposY, *posX-mposX);
             }
             if(command=='j'&&touch_rectangle(3,2, *posX, *posY,1)){
+                if(*posX-MAP_X/2>0 && *posX+MAP_X/2<msizeX){
+                    move_screen(command, &mposX, &mposY,msizeX,msizeY);
+                }
                 add_rectangle(3, 2,*posX,*posY,' ');
+                if_climb(3, 2, posX, posY, 1);
                 (*posX)--;
+                if_descent(3, 2, posX, posY);
                 *direct=1;
                 add_rectangle(3, 2,*posX,*posY,'o');
+                move(*posY-mposY, *posX-mposX);
             }
         }
+        if_descent(3, 2, posX, posY);
         refresh();
-        move(*posY-mposY, *posX-mposX);
     }
 }
 

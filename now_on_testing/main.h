@@ -25,5 +25,6 @@ int map[1000][1000];
 void set_mpos(int,int);
 void move_char(int *posX, int *posY,int *direct);
 void set_angle_power(int posX,int posY,element *store);
+void make_edge();
 
 extern int mposX,mposY,msizeX,msizeY;

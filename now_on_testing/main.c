@@ -19,10 +19,10 @@ int p1[2], p2[2];
 void set_mpos(int posX,int posY){
     if(posY+MAP_Y/2>=msizeY)
         mposY=msizeY-MAP_Y;
-    else if(posY+5-MAP_Y/2<0)
+    else if(posY-MAP_Y/2<0)
         mposY=0;
     else
-        mposY=posY+5-MAP_Y/2;
+        mposY=posY-MAP_Y/2;
     if(MAP_X>msizeX)
         mposX=0;
     else if(posX-MAP_X/2<0)
@@ -37,7 +37,7 @@ void set_mpos(int posX,int posY){
 int main(void)
 {
     char bomb = '*';
-    
+    char *buffer;
     int posX, posY;
     float speed;
     element store;
@@ -45,7 +45,7 @@ int main(void)
     char c;
     FILE *fp;
     
-    store.angle=store.power=1;
+    store.angle=45,store.power=30;
     /*printf("input angle power direction(Left:1,Right:0) : ");
     scanf("%f %f %d",&store.angle,&store.power,&store.direction);
     
@@ -88,39 +88,17 @@ int main(void)
         }
     }
     
-    speed=40000-store.power*1000*pow(cos(store.angle*PI/180.0),2);
+    /*speed=40000-store.power*1000*pow(cos(store.angle*PI/180.0),2);
     
     if(speed<=24000)
-        speed=24000;
+        speed=24000;*/
     
     initscr();
     init_keyboard();
     set_nodelay_mode();
-    
     clear();
-    //startmenu();
-    move(0,0);
-    for(i=0;i<=MAP_X+1;i++)
-    {
-        move(0,i);
-        addch('&');
-    }
-    for(i=1;i<=MAP_Y;i++)
-    {
-        move(i,0);
-        addch('&');
-        move(i,MAP_X+1);
-        addch('&');
-    }
-    move(MAP_Y+1,0);
     
-    for(i=0;i<=MAP_X+1;i++)
-    {
-        move(MAP_Y+1,i);
-        addch('&');
-    }
-    refresh();
-    
+    make_edge();
     /*if(store.direction==0)
     {
         posX = p1[1];
@@ -141,26 +119,16 @@ int main(void)
         posY--;
     }
     */
-    set_mpos(posX, posY);
-    
-    get_screen(mposX, mposY,msizeX,msizeY);
-    refresh();
-    
-    if(store.power>60)
-        store.power=60;
-    
-    move_char(&posX,&posY,&store.direction);
-    set_angle_power(posX, posY, &store);
-    equation(&store);
-    parabola(store, posX, posY-1, bomb);
+
+    while(1){
+        set_mpos(posX, posY);
+        move_char(&posX,&posY,&store.direction);//while()문
+        set_angle_power(posX, posY, &store);//while()문
+        equation(&store);
+        parabola(store, posX, posY-1, bomb);
+        fgets(buffer, 100, stdin);
+    }
     endwin();
-    
-    printf("coeffient a:%f coeffient b:%f angle:%f power:%f ",store.a,store.b,store.angle,store.power);
-    printf("speed : %f posX : %d posY : %d Col: %d LINE : %d mapX: %d mapY: %d",speed,posX,posY,MAP_X,MAP_Y,mposX,mposY);
-    if(store.direction==1)
-        printf("direction:Left \n");
-    else
-        printf("direction:Right \n");
     
     return 0;
 }

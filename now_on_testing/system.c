@@ -3,6 +3,8 @@
 #include <fcntl.h>
 #include <termios.h>
 #include <unistd.h>
+#include <curses.h>
+#include "main.h"
 
 struct termios new_settings,initial_settings;
 
@@ -15,7 +17,7 @@ void set_nodelay_mode(){
 
 int get_ok_char(){
     int c;
-    while((c=getchar())!=EOF&&strchr("ikjla",c)==NULL);
+    while((c=getchar())!=EOF&&strchr("ikjlas",c)==NULL);
     return c;
 }
 

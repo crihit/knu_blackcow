@@ -7,59 +7,6 @@
 #include <curses.h>
 #include "main.h"
 
-/*void get_screen(int posX,int posY){ //map배열에서 map[posY][posX]부터 스크린 전체가 꽉찰때까지 스캔
- int i,j;
- 
- for(i=0;i<LINES;i++){
- for(j=0;j<COLS;j++){
- move(i,j);
- if(i+posY>=msizeY||j+posX>=msizeX||i+posY<0||j+posX<0)//오류수정
- addch(' ');
- else{
- addch(map[i+posY][j+posX]);
- }
- }
- }
- }*/
-
-void get_screen(int posX,int posY,int xSize, int ySize){
-    int i,j;
-    
-    for(i=1;i<=MAP_Y;i++){
-        for(j=1;j<=MAP_X;j++){
-            move(i,j);
-            if(i+posY>ySize||j+posX>xSize)
-                addch(' ');
-            else
-                addch(map[i+posY-1][j+posX-1]);
-            
-        }
-    }
-}
-
-/*void move_screen(int command,int *posX,int *posY){//ikjl 상하좌우로 스크린 이동
- if(command=='i'&&*posY>0)
- (*posY)--;
- if(command=='j'&&*posX>0)
- (*posX)--;
- if(command=='l'&&msizeX-*posX>COLS)
- (*posX)++;
- if(command=='k'&&msizeY-*posY>LINES)
- (*posY)++;
- 
- }*/
-
-void move_screen(int command,int *posX,int *posY, int mapX, int mapY){
-    if(command=='i'&&*posY>0)
-        (*posY)--;
-    if(command=='j'&&*posX>0)
-        (*posX)--;
-    if(command=='l'&&(*posX+mapX)>MAP_X&&(mapX-*posX)>MAP_X)
-        (*posX)++;
-    if(command=='k'&&(*posY+mapY)>MAP_Y&&(mapY-*posY)>MAP_Y)
-        (*posY)++;
-    
-}
 
 
 void equation(element *store){//포물선 함수
@@ -69,19 +16,23 @@ void equation(element *store){//포물선 함수
 
 void erase_map(int posX, int posY){
     
-    int i,j,k;
-    for(k=0;k<10;k++){
+    int i,j,k,range=7;
+    for(k=0;k<range;k++){
         for(i = posY-k; i <= posY+k; i++){
             for(j = posX - k; j<= posX+k; j++){
-                if(i<=0||i>=msizeY||j<0||j>=msizeX)
+                if(i<=0||i>=msizeY||j<0||j>=msizeX-1)
                     break;
+                if(pow(i-posY,2)+pow(j-posX, 2)>pow(k, 2))
+                    continue;
                 map[i][j] = '@';
             }
         }
         for(i = posY-(k-1); i <= posY+(k-1); i++){
             for(j = posX - (k-1); j<= posX+(k-1); j++){
-                if(i<=0||i>=msizeY||j<0||j>=msizeX)
+                if(i<=0||i>=msizeY||j<0||j>=msizeX-1)
                     break;
+                if(pow(i-posY,2)+pow(j-posX, 2)>pow(k-1, 2))
+                    continue;
                 map[i][j] = ' ';
             }
         }
@@ -90,8 +41,13 @@ void erase_map(int posX, int posY){
         usleep(100000);
     }
     for(i = posY-k; i <= posY+k; i++){
-        for(j = posX - k; j<= posX+k; j++)
-            map[i][j] = ' ';
+        for(j = posX - k; j<= posX+k; j++){
+        if(i<=0||i>=msizeY||j<0||j>=msizeX-1)
+            break;
+        if(pow(i-posY,2)+pow(j-posX, 2)>pow(range, 2))
+            continue;
+        map[i][j] = ' ';
+        }
     }
     get_screen(mposX, mposY, msizeX, msizeY);
     refresh();
@@ -122,31 +78,31 @@ void parabola(element store,int pos_X,int pos_Y,char bomb){
             get_screen(mposX, mposY,msizeX,msizeY);
             posX++;
             
-            if(posX<=0||posX>=msizeX)//화면 벗어나면 종료
+            if(posX<=1||posX>=msizeX-1)//화면 벗어나면 종료
                 return;
             
             if(posY<pos_Y-temp){
                 for(;posY<pos_Y-temp;posY++){
-                    if(posY<=1||posY>=msizeY)//화면 벗어나거나 땅에 닿으면 종료
+                    if(posY<=1||posY>=msizeY-1)//화면 벗어나거나 땅에 닿으면 종료
                         return;
                     if(map[posY][posX]=='#'){
                         erase_map(posX,posY);
                         return;
                     }
-                    if(posY-MAP_Y/2>0 && posY+MAP_Y/2<msizeY){
+                    if(posY-MAP_Y/2>=0 && posY+MAP_Y/2<msizeY-1){
                         move_screen('k', &mposX, &mposY,msizeX,msizeY);
                     }
                 }
             }
             else{
                 for(;posY>pos_Y-temp;posY--){
-                    if(posY<=1||posY>=msizeY)
+                    if(posY<=1||posY>=msizeY-1)
                         return;
                     if(map[posY][posX]=='#'){
                         erase_map(posX,posY);
                         return;
                     }
-                    if(posY-MAP_Y/2>0 && posY+MAP_Y/2<msizeY){
+                    if(posY-MAP_Y/2>=0 && posY+MAP_Y/2<msizeY-1){
                         move_screen('i', &mposX, &mposY,msizeX,msizeY);
                     }
                 }
@@ -172,31 +128,31 @@ void parabola(element store,int pos_X,int pos_Y,char bomb){
             }
             get_screen(mposX, mposY,msizeX,msizeY);
             posX--;
-            if(posX<=0||posX>=msizeX)
+            if(posX<=1||posX>=msizeX-1)
                 return;
             if(posY<pos_Y-temp){
-                for(;posY<pos_Y-temp;posY++){
-                    if(posY<=1||posY>=msizeY)
+                for(;posY<pos_Y-temp&&posY;posY++){
+                    if(posY<=1||posY>=msizeY-1)
                         return;
                     if(map[posY][posX]=='#'){
                         erase_map(posX,posY);
                         return;
                     }
-                    if(posY-MAP_Y/2>0 && posY+MAP_Y/2<msizeY){
+                    if(posY-MAP_Y/2>=0 && posY+MAP_Y/2<msizeY-1){
                         move_screen('k', &mposX, &mposY,msizeX,msizeY);
                     }
                 }
             }
             else{
                 for(;posY>pos_Y-temp;posY--){
-                    if(posY<=1||posY>=msizeY)
+                    if(posY<=1||posY>=msizeY-1)
                         return;
                     if(map[posY][posX]=='#'){
                         erase_map(posX,posY);
                         return;
                     }
 
-                    if(posY-MAP_Y/2>0 && posY+MAP_Y/2<msizeY){
+                    if(posY-MAP_Y/2>=0 && posY+MAP_Y/2<msizeY-1){
                         move_screen('i', &mposX, &mposY,msizeX,msizeY);
                     }
                 }
