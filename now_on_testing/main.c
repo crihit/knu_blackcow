@@ -133,6 +133,7 @@ int main(void)
         parabola(store1, char1.posX, char1.posY-1, bomb);
         set_mpos(char1.posX, char1.posY);
         if_descent(3, 2, &char1.posX, &char1.posY);
+        char1.gas=10;
         fgets(buffer, 100, stdin);
         
         set_mpos(char2.posX, char2.posY);
@@ -142,6 +143,7 @@ int main(void)
         parabola(store2, char2.posX, char2.posY-1, bomb);
         set_mpos(char2.posX, char2.posY);
         if_descent(3, 2, &char2.posX, &char2.posY);
+        char2.gas=10;
         fgets(buffer, 100, stdin);
 
     }
