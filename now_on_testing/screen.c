@@ -48,7 +48,7 @@ void make_char_option(character char0){
     addstr("health point : ");
     for(i=0;i<char0.hp;i++)
         addch('0');
-    for(;i<3;i++){
+    for(;i<10;i++){
         addch(' ');
     }
     

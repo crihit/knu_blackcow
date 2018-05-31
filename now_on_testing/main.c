@@ -143,7 +143,7 @@ int main(void)
         parabola(store1, char1.posX, char1.posY-1, bomb,&char1,&char2);
         set_mpos(char1.posX, char1.posY);
         if_descent(3, 2, &char1.posX, &char1.posY);
-        char1.gas=30;
+        char1.gas=50;
         if(char1.hp<=0||char2.hp<=0){
             endwin();
             return 0;
