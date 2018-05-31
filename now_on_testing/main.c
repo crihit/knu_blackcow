@@ -15,7 +15,7 @@
 
 int mposY=0,mposX=0,msizeX=0,msizeY=0;
 int p1[2], p2[2];
-char mapname[5][20] = {"map1.txt","map3.txt","map5.txt"};
+char mapname[5][20] = {"map1.txt","map2.txt","map3.txt"};
 
 
 void set_mpos(int posX,int posY){
