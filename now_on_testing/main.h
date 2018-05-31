@@ -24,7 +24,7 @@ struct charact{
     int gas;
     int range;
     int power;
-    boption btype[3];
+    boption btype[4];
 };
 
 typedef struct coeffient element;

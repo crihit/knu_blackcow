@@ -107,6 +107,7 @@ int main(void)
     char1.btype[0].power=3,char1.btype[0].range=7;
     char1.btype[1].power=1,char1.btype[1].range=10;
     char1.btype[2].power=5,char1.btype[2].range=5;
+    char1.btype[3].power=0,char1.btype[3].range=0;
     char1.range=char1.btype[0].range;
     char1.power=char1.btype[0].power;
     
@@ -118,6 +119,7 @@ int main(void)
     char2.btype[0].power=2,char2.btype[0].range=8;
     char2.btype[1].power=0,char2.btype[1].range=13;
     char2.btype[2].power=4,char2.btype[2].range=6;
+    char2.btype[3].power=0,char2.btype[3].range=0;
     char2.range=char2.btype[0].range;
     char2.power=char2.btype[0].power;
     
@@ -143,6 +145,7 @@ int main(void)
         parabola(store1, char1.posX, char1.posY-1, bomb,&char1,&char2);
         set_mpos(char1.posX, char1.posY);
         if_descent(3, 2, &char1.posX, &char1.posY);
+        refresh();
         char1.gas=50;
         if(char1.hp<=0||char2.hp<=0){
             endwin();
@@ -158,6 +161,7 @@ int main(void)
         parabola(store2, char2.posX, char2.posY-1, bomb,&char2,&char1);
         set_mpos(char2.posX, char2.posY);
         if_descent(3, 2, &char2.posX, &char2.posY);
+        refresh();
         char2.gas=30;
         if(char1.hp<=0||char2.hp<=0){
             endwin();

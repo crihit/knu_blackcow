@@ -31,7 +31,7 @@ void chooses_option(character *char0){
             if(command=='l'){
                 move(MAP_Y+9, 4+choose*20);
                 addch(' ');
-                choose=(choose+1)%3;
+                choose=(choose+1)%4;
                 char0->range=char0->btype[choose].range;
                 char0->power=char0->btype[choose].power;
                 
@@ -39,9 +39,9 @@ void chooses_option(character *char0){
             else if(command=='j'){
                 move(MAP_Y+9, 4+choose*20);
                 addch(' ');
-                choose=(choose-1)%3;
+                choose=(choose-1)%4;
                 if(choose<0)
-                    choose=2;
+                    choose=3;
                 char0->range=char0->btype[choose].range;
                 char0->power=char0->btype[choose].power;
             }

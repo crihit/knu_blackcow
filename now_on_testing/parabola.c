@@ -15,7 +15,14 @@ void equation(element *store){//포물선 함수
 }
 
 void erase_map(int posX, int posY,character *char0,character *char1){
-    
+    if(char0->range==0&&char0->power==0){
+        add_rectangle(3, 2, char0->posX, char0->posY, ' ');
+        char0->posX=posX;
+        char0->posY=posY-1;
+        add_rectangle(3, 2, char0->posX, char0->posY, 'o');
+        return;
+    }
+        
     int i,j,k,range=char0->range;
     for(k=0;k<range;k++){
         for(i = posY-k; i <= posY+k; i++){

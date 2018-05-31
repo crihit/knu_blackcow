@@ -79,7 +79,7 @@ void make_char_option(character char0){
         addch(' ');
     }
     
-    for(j=0;j<3;j++){
+    for(j=0;j<4;j++){
         move(MAP_Y+6, 4+j*20);
         addstr("type");
         addch(j+'1');
