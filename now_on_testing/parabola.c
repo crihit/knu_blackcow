@@ -128,7 +128,7 @@ void parabola(element store,int pos_X,int pos_Y,char bomb,character *char0,chara
             get_screen(mposX, mposY,msizeX,msizeY);
             move(posY-mposY, posX-mposX);
             if(map[posY][posX]=='#'){
-                erase_map(posX,posY,char0,char1,1);
+                erase_map(posX,posY,char0,char1,updown);
                 return;
             }
             addch(bomb);
