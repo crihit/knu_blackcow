@@ -38,20 +38,16 @@ int main(void)
 {
     char bomb = '*';
     char *buffer;
-    int posX, posY;
     float speed;
-    element store;
+    element store1,store2;
+    character char1,char2;
     int i,j;
     char c;
     FILE *fp;
     
-    store.angle=45,store.power=30;
-    /*printf("input angle power direction(Left:1,Right:0) : ");
-    scanf("%f %f %d",&store.angle,&store.power,&store.direction);
-    
-    if(store.angle>=90){
-        store.angle=89.0;
-    }*/
+    store1.angle=store2.angle=45;
+    store1.power=store2.power=30;
+    store1.direction=0,store2.direction=1;
     
     if((fp=fopen("map5.txt", "r"))==NULL){
         printf("cannot find map.txt");
@@ -99,17 +95,14 @@ int main(void)
     clear();
     
     make_edge();
-    /*if(store.direction==0)
-    {
-        posX = p1[1];
-        posY = p1[0];
-    }
-    else*/
-    {
-        posX = p2[1];
-        posY = p2[0];
-    }
-    move(posY, posX);
+
+        char1.posX = p1[1];
+        char1.posY = p1[0]-40;
+
+        char2.posX = p2[1];
+        char2.posY = p2[0];
+    
+    move(char1.posY, char2.posX);
     
     /*while(map[posY][posX]==' '){
         posY++;
@@ -119,15 +112,22 @@ int main(void)
         posY--;
     }
     */
-    store.direction=1;
 
     while(1){
-        set_mpos(posX, posY);
-        move_char(&posX,&posY,&store.direction);//while()문
-        set_angle_power(posX, posY, &store);//while()문
-        equation(&store);
-        parabola(store, posX, posY-1, bomb);
+        set_mpos(char1.posX, char1.posY);
+        move_char(&char1.posX,&char1.posY,&store1.direction);//while()문
+        set_angle_power(char1.posX, char1.posY, &store1);//while()문
+        equation(&store1);
+        parabola(store1, char1.posX, char1.posY-1, bomb);
         fgets(buffer, 100, stdin);
+        
+        set_mpos(char2.posX, char2.posY);
+        move_char(&char2.posX,&char2.posY,&store2.direction);//while()문
+        set_angle_power(char2.posX, char2.posY, &store2);//while()문
+        equation(&store2);
+        parabola(store2, char2.posX, char2.posY-1, bomb);
+        fgets(buffer, 100, stdin);
+
     }
     endwin();
     

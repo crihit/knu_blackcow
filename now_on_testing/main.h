@@ -11,7 +11,16 @@ struct coeffient{
     int direction;
 };
 
+struct charact{
+    int posX;
+    int posY;
+    int hp;
+    int gas;
+    int range;
+};
+
 typedef struct coeffient element;
+typedef struct charact character;
 
 void set_nodelay_mode();
 int get_ok_char();

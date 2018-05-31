@@ -16,7 +16,7 @@ void equation(element *store){//포물선 함수
 
 void erase_map(int posX, int posY){
     
-    int i,j,k,range=50;
+    int i,j,k,range=10;
     for(k=0;k<range;k++){
         for(i = posY-k; i <= posY+k; i++){
             for(j = posX - k; j<= posX+k; j++){
@@ -42,11 +42,11 @@ void erase_map(int posX, int posY){
     }
     for(i = posY-k; i <= posY+k; i++){
         for(j = posX - k; j<= posX+k; j++){
-        if(i<=0||i>=msizeY||j<0||j>=msizeX-1)
-            break;
-        if(pow((i-posY)*2,2)+pow(j-posX, 2)>pow(range, 2))
-            continue;
-        map[i][j] = ' ';
+            if(i<=0||i>=msizeY||j<0||j>=msizeX-1)
+                break;
+            if(pow((i-posY)*2,2)+pow(j-posX, 2)>pow(range, 2))
+                continue;
+            map[i][j] = ' ';
         }
     }
     get_screen(mposX, mposY, msizeX, msizeY);
