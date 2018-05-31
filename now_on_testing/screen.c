@@ -73,5 +73,4 @@ void make_edge(){
         move(MAP_Y+11,i);
         addch('&');
     }
-    
 }

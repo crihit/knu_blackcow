@@ -69,23 +69,21 @@ void if_descent(int Xlength,int Ylength,int *posX,int *posY){
     }
 }
 
-void move_char(int *posX, int *posY,int *direct,character char0){
+void move_char(int *posX, int *posY,int *direct,character* char0){
     int command;
     int x,y;
 
-    //make_edge();
     while(1){
         get_screen(mposX, mposY, msizeX, msizeY);
         getyx(curscr, y, x);
         if(y==MAP_Y+1&&x==MAP_X+1)
             continue;
-        add_rectangle(3, 2,*posX,*posY,'o');
         move(*posY-mposY, *posX-mposX);
         if((command=get_ok_char())!=EOF){
             if(command=='a')
                 break;
 
-            if(command=='l'&&touch_rectangle(3,2, *posX, *posY,0)&&char0.gas>0){
+            if(command=='l'&&touch_rectangle(3,2, *posX, *posY,0)&&char0->gas>0){
                 if(*posX-MAP_X/2>0 && *posX+MAP_X/2<msizeX){
                     move_screen(command, &mposX, &mposY,msizeX,msizeY);
                 }
@@ -96,9 +94,12 @@ void move_char(int *posX, int *posY,int *direct,character char0){
                 *direct=0;
                 add_rectangle(3, 2,*posX,*posY,'o');
                 move(*posY-mposY, *posX-mposX);
-                char0.gas--;
+                char0->gas--;
             }
-            if(command=='j'&&touch_rectangle(3,2, *posX, *posY,1)&&char0.gas>0){
+            else if(command=='l'){
+                *direct=0;
+            }
+            if(command=='j'&&touch_rectangle(3,2, *posX, *posY,1)&&char0->gas>0){
                 if(*posX-MAP_X/2>0 && *posX+MAP_X/2<msizeX){
                     move_screen(command, &mposX, &mposY,msizeX,msizeY);
                 }
@@ -109,7 +110,10 @@ void move_char(int *posX, int *posY,int *direct,character char0){
                 *direct=1;
                 add_rectangle(3, 2,*posX,*posY,'o');
                 move(*posY-mposY, *posX-mposX);
-                char0.gas--;
+                char0->gas--;
+            }
+            else if(command=='j'){
+                *direct=1;
             }
         }
         if_descent(3, 2, posX, posY);

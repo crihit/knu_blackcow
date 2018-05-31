@@ -28,14 +28,14 @@ void init_keyboard();
 void get_screen(int posX,int posY,int msizeX, int msizeY);
 void move_screen(int command,int *posX,int *posY, int msizeX, int msizeY);
 void equation(element *store);
-void parabola(element store,int pos_X,int pos_Y,char bomb);
+void parabola(element store,int pos_X,int pos_Y,char bomb,character *char0,character *char1);
 void startmenu();
-int map[1000][1000];
+int map[1000][500];
 void set_mpos(int,int);
-void move_char(int *posX, int *posY,int *direct,character char0);
+void move_char(int *posX, int *posY,int *direct,character* char0);
 void set_angle_power(int posX,int posY,element *store);
 void make_edge();
 void if_descent(int Xlength,int Ylength,int *posX,int *posY);
-
+void add_rectangle(int Xlength,int Ylength,int posX,int posY,int input);
 
 extern int mposX,mposY,msizeX,msizeY;
