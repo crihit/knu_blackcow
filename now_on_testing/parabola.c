@@ -96,7 +96,7 @@ void parabola(element store,int pos_X,int pos_Y,char bomb,character *char0,chara
             
             if(posY<pos_Y-temp){
                 for(;posY<pos_Y-temp;posY++){
-                    if(posY<=1||posY>=msizeY-1)//화면 벗어나거나 땅에 닿으면 종료
+                    if(posY<=0||posY>=msizeY-1)//화면 벗어나거나 땅에 닿으면 종료
                         return;
                     if(map[posY][posX]=='#'||map[posY][posX]=='o'){
                         erase_map(posX,posY,char0,char1);
@@ -109,7 +109,7 @@ void parabola(element store,int pos_X,int pos_Y,char bomb,character *char0,chara
             }
             else{
                 for(;posY>pos_Y-temp;posY--){
-                    if(posY<=1||posY>=msizeY-1)
+                    if(posY<=0||posY>=msizeY-1)
                         return;
                     if(map[posY][posX]=='#'||map[posY][posX]=='o'){
                         erase_map(posX,posY,char0,char1);
@@ -145,7 +145,7 @@ void parabola(element store,int pos_X,int pos_Y,char bomb,character *char0,chara
                 return;
             if(posY<pos_Y-temp){
                 for(;posY<pos_Y-temp&&posY;posY++){
-                    if(posY<=1||posY>=msizeY-1)
+                    if(posY<=0||posY>=msizeY-1)
                         return;
                     if(map[posY][posX]=='#'||map[posY][posX]=='o'){
                         erase_map(posX,posY,char0,char1);
@@ -158,7 +158,7 @@ void parabola(element store,int pos_X,int pos_Y,char bomb,character *char0,chara
             }
             else{
                 for(;posY>pos_Y-temp;posY--){
-                    if(posY<=1||posY>=msizeY-1)
+                    if(posY<=0||posY>=msizeY-1)
                         return;
                     if(map[posY][posX]=='#'||map[posY][posX]=='o'){
                         erase_map(posX,posY,char0,char1);
