@@ -14,11 +14,14 @@ void equation(element *store){//포물선 함수
     store->a=tan(store->angle*PI/180.0)/2/store->b;
 }
 
-void erase_map(int posX, int posY,character *char0,character *char1){
+void erase_map(int posX, int posY,character *char0,character *char1,int updown){
     if(char0->range==0&&char0->power==0){
         add_rectangle(3, 2, char0->posX, char0->posY, ' ');
         char0->posX=posX;
-        char0->posY=posY-1;
+        if(updown==1)
+            char0->posY=posY-1;
+        else
+            char0->posY=posY+2;
         add_rectangle(3, 2, char0->posX, char0->posY, 'o');
         return;
     }
@@ -72,7 +75,7 @@ void erase_map(int posX, int posY,character *char0,character *char1){
 void parabola(element store,int pos_X,int pos_Y,char bomb,character *char0,character *char1){
     //mposX=5;
     int posX=pos_X,posY=pos_Y;//map[i][j]에서의 posY,posX값
-    int i,temp,speed;
+    int i,temp,speed,updown=0;
     
     speed=40000-store.power*1000*pow(cos(store.angle*PI/180.0),2);
     
@@ -95,11 +98,12 @@ void parabola(element store,int pos_X,int pos_Y,char bomb,character *char0,chara
                 return;
             
             if(posY<pos_Y-temp){
+                updown=1;
                 for(;posY<pos_Y-temp;posY++){
                     if(posY<=0||posY>=msizeY-1)//화면 벗어나거나 땅에 닿으면 종료
                         return;
                     if(map[posY][posX]=='#'||map[posY][posX]=='o'){
-                        erase_map(posX,posY,char0,char1);
+                        erase_map(posX,posY,char0,char1,updown);
                         return;
                     }
                     if(posY-MAP_Y/2>=0 && posY+MAP_Y/2<msizeY-1){
@@ -108,11 +112,12 @@ void parabola(element store,int pos_X,int pos_Y,char bomb,character *char0,chara
                 }
             }
             else{
+                updown=0;
                 for(;posY>pos_Y-temp;posY--){
                     if(posY<=0||posY>=msizeY-1)
                         return;
                     if(map[posY][posX]=='#'||map[posY][posX]=='o'){
-                        erase_map(posX,posY,char0,char1);
+                        erase_map(posX,posY,char0,char1,updown);
                         return;
                     }
                     if(posY-MAP_Y/2>=0 && posY+MAP_Y/2<msizeY-1){
@@ -123,7 +128,7 @@ void parabola(element store,int pos_X,int pos_Y,char bomb,character *char0,chara
             get_screen(mposX, mposY,msizeX,msizeY);
             move(posY-mposY, posX-mposX);
             if(map[posY][posX]=='#'){
-                erase_map(posX,posY,char0,char1);
+                erase_map(posX,posY,char0,char1,1);
                 return;
             }
             addch(bomb);
@@ -144,11 +149,12 @@ void parabola(element store,int pos_X,int pos_Y,char bomb,character *char0,chara
             if(posX<=1||posX>=msizeX-1)
                 return;
             if(posY<pos_Y-temp){
+                updown=1;
                 for(;posY<pos_Y-temp&&posY;posY++){
                     if(posY<=0||posY>=msizeY-1)
                         return;
                     if(map[posY][posX]=='#'||map[posY][posX]=='o'){
-                        erase_map(posX,posY,char0,char1);
+                        erase_map(posX,posY,char0,char1,updown);
                         return;
                     }
                     if(posY-MAP_Y/2>=0 && posY+MAP_Y/2<msizeY-1){
@@ -157,11 +163,12 @@ void parabola(element store,int pos_X,int pos_Y,char bomb,character *char0,chara
                 }
             }
             else{
+                updown=0;
                 for(;posY>pos_Y-temp;posY--){
                     if(posY<=0||posY>=msizeY-1)
                         return;
                     if(map[posY][posX]=='#'||map[posY][posX]=='o'){
-                        erase_map(posX,posY,char0,char1);
+                        erase_map(posX,posY,char0,char1,updown);
                         return;
                     }
 
@@ -174,7 +181,7 @@ void parabola(element store,int pos_X,int pos_Y,char bomb,character *char0,chara
             get_screen(mposX, mposY,msizeX,msizeY);
             move(posY-mposY, posX-mposX);
             if(map[posY][posX]=='#'){
-                erase_map(posX,posY,char0,char1);
+                erase_map(posX,posY,char0,char1,updown);
                 return;
             }
             addch(bomb);
