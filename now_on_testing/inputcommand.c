@@ -82,6 +82,8 @@ void move_char(int *posX, int *posY,int *direct,character* char0){
         if((command=get_ok_char())!=EOF){
             if(command=='a')
                 break;
+            if(command=='s')
+                chooses_option(char0);
 
             if(command=='l'&&touch_rectangle(3,2, *posX, *posY,0)&&char0->gas>0){
                 if(*posX-MAP_X/2>0 && *posX+MAP_X/2<msizeX){
@@ -115,6 +117,7 @@ void move_char(int *posX, int *posY,int *direct,character* char0){
             else if(command=='j'){
                 *direct=1;
             }
+            make_char_option(*char0);
         }
         if_descent(3, 2, posX, posY);
         refresh();

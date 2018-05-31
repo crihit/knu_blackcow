@@ -42,6 +42,67 @@ void move_screen(int command,int *posX,int *posY, int mapX, int mapY){
     
 }
 
+void make_char_option(character char0){
+    int i,j;
+    move(MAP_Y+2, 4);
+    addstr("health point : ");
+    for(i=0;i<char0.hp;i++)
+        addch('0');
+    for(;i<3;i++){
+        addch(' ');
+    }
+    
+    move(MAP_Y+2,40);
+    addstr("range : ");
+    for(i=0;i<char0.range;i++){
+        addch('*');
+    }
+    for(;i<30;i++){
+        addch(' ');
+    }
+
+    move(MAP_Y+4, 4);
+    addstr("gas : ");
+    for(i=0;i<char0.gas;i++){
+        addch('>');
+    }
+    for(;i<30;i++){
+        addch(' ');
+    }
+    
+    move(MAP_Y+4, 40);
+    addstr("power : ");
+    for(i=0;i<char0.power;i++){
+        addch('+');
+    }
+    for(;i<30;i++){
+        addch(' ');
+    }
+    
+    for(j=0;j<3;j++){
+        move(MAP_Y+6, 4+j*20);
+        addstr("type");
+        addch(j+'1');
+        move(MAP_Y+7, 4+j*20);
+        addstr("range : ");
+        for(i=0;i<char0.btype[j].range;i++){
+            addch('*');
+        }
+        for(;i<5;i++){
+            addch(' ');
+        }
+        move(MAP_Y+8, 4+j*20);
+        addstr("power : ");
+        for(i=0;i<char0.btype[j].power;i++){
+            addch('+');
+        }
+        for(;i<5;i++){
+            addch(' ');
+        }
+
+
+    }
+}
 
 void make_edge(){
     int i;

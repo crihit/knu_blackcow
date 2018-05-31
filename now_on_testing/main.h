@@ -11,12 +11,20 @@ struct coeffient{
     int direction;
 };
 
+struct bomb_option{
+    int range;
+    int power;
+};
+typedef struct bomb_option boption;
+
 struct charact{
     int posX;
     int posY;
     int hp;
     int gas;
     int range;
+    int power;
+    boption btype[3];
 };
 
 typedef struct coeffient element;
@@ -34,8 +42,11 @@ int map[1000][500];
 void set_mpos(int,int);
 void move_char(int *posX, int *posY,int *direct,character* char0);
 void set_angle_power(int posX,int posY,element *store);
-void make_edge();
+void make_edge(/*character *char0,character *char1*/);
 void if_descent(int Xlength,int Ylength,int *posX,int *posY);
 void add_rectangle(int Xlength,int Ylength,int posX,int posY,int input);
+void make_char_option(character char0);
+void chooses_option(character *char0);
+
 
 extern int mposX,mposY,msizeX,msizeY;

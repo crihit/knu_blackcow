@@ -15,7 +15,7 @@
 
 int mposY=0,mposX=0,msizeX=0,msizeY=0;
 int p1[2], p2[2];
-char mapname[5][20] = {"map.txt","map3.txt","map5.txt"};
+char mapname[5][20] = {"map1.txt","map3.txt","map5.txt"};
 
 
 void set_mpos(int posX,int posY){
@@ -99,19 +99,29 @@ int main(void)
     set_nodelay_mode();
     clear();
     
-    make_edge();
-    
     char1.posX = p1[1];
-    char1.posY = p1[0];
+    char1.posY = p1[0]-40;
     
-    char1.hp=3;
-    char1.gas=30;
+    char1.hp=7;
+    char1.gas=50;
+    char1.btype[0].power=3,char1.btype[0].range=7;
+    char1.btype[1].power=1,char1.btype[1].range=10;
+    char1.btype[2].power=5,char1.btype[2].range=5;
+    char1.range=char1.btype[0].range;
+    char1.power=char1.btype[0].power;
     
     char2.posX = p2[1];
     char2.posY = p2[0];
     
-    char2.hp=3;
+    char2.hp=10;
     char2.gas=30;
+    char2.btype[0].power=2,char2.btype[0].range=8;
+    char2.btype[1].power=0,char2.btype[1].range=13;
+    char2.btype[2].power=4,char2.btype[2].range=6;
+    char2.range=char2.btype[0].range;
+    char2.power=char2.btype[0].power;
+    
+    make_edge();
     
     move(char1.posY, char1.posX);
     
@@ -125,6 +135,7 @@ int main(void)
     add_rectangle(3, 2,char2.posX,char2.posY,'o');
     
     while(1){
+        make_char_option(char1);
         set_mpos(char1.posX, char1.posY);
         move_char(&char1.posX,&char1.posY,&store1.direction,&char1);//while()문
         set_angle_power(char1.posX, char1.posY, &store1);//while()문
@@ -139,6 +150,7 @@ int main(void)
         }
         scanf("%s",buffer);
         
+        make_char_option(char2);
         set_mpos(char2.posX, char2.posY);
         move_char(&char2.posX,&char2.posY,&store2.direction,&char2);//while()문
         set_angle_power(char2.posX, char2.posY, &store2);//while()문

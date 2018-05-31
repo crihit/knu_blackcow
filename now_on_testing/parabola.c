@@ -16,7 +16,7 @@ void equation(element *store){//포물선 함수
 
 void erase_map(int posX, int posY,character *char0,character *char1){
     
-    int i,j,k,range=10;
+    int i,j,k,range=char0->range;
     for(k=0;k<range;k++){
         for(i = posY-k; i <= posY+k; i++){
             for(j = posX - k; j<= posX+k; j++){
@@ -47,10 +47,10 @@ void erase_map(int posX, int posY,character *char0,character *char1){
             if(pow((i-posY)*2,2)+pow(j-posX, 2)>pow(range, 2))
                 continue;
             else if(i==char0->posY&&j==char0->posX){
-                (char0->hp)--;
+                char0->hp-=char0->power;
             }
             else if(i==char1->posY&&j==char1->posX){
-                (char1->hp)--;
+                char1->hp-=char0->power;
             }
             map[i][j] = ' ';
         }
@@ -91,7 +91,7 @@ void parabola(element store,int pos_X,int pos_Y,char bomb,character *char0,chara
                 for(;posY<pos_Y-temp;posY++){
                     if(posY<=1||posY>=msizeY-1)//화면 벗어나거나 땅에 닿으면 종료
                         return;
-                    if(map[posY][posX]=='#'){
+                    if(map[posY][posX]=='#'||map[posY][posX]=='o'){
                         erase_map(posX,posY,char0,char1);
                         return;
                     }
@@ -104,7 +104,7 @@ void parabola(element store,int pos_X,int pos_Y,char bomb,character *char0,chara
                 for(;posY>pos_Y-temp;posY--){
                     if(posY<=1||posY>=msizeY-1)
                         return;
-                    if(map[posY][posX]=='#'){
+                    if(map[posY][posX]=='#'||map[posY][posX]=='o'){
                         erase_map(posX,posY,char0,char1);
                         return;
                     }
@@ -140,7 +140,7 @@ void parabola(element store,int pos_X,int pos_Y,char bomb,character *char0,chara
                 for(;posY<pos_Y-temp&&posY;posY++){
                     if(posY<=1||posY>=msizeY-1)
                         return;
-                    if(map[posY][posX]=='#'){
+                    if(map[posY][posX]=='#'||map[posY][posX]=='o'){
                         erase_map(posX,posY,char0,char1);
                         return;
                     }
@@ -153,7 +153,7 @@ void parabola(element store,int pos_X,int pos_Y,char bomb,character *char0,chara
                 for(;posY>pos_Y-temp;posY--){
                     if(posY<=1||posY>=msizeY-1)
                         return;
-                    if(map[posY][posX]=='#'){
+                    if(map[posY][posX]=='#'||map[posY][posX]=='o'){
                         erase_map(posX,posY,char0,char1);
                         return;
                     }
