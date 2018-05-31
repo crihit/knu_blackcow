@@ -15,6 +15,7 @@
 
 int mposY=0,mposX=0,msizeX=0,msizeY=0;
 int p1[2], p2[2];
+char mapname[5][20] = {"map.txt","map3.txt","map5.txt"};
 character char1,char2;
 
 void set_mpos(int posX,int posY){
@@ -38,6 +39,7 @@ void set_mpos(int posX,int posY){
 int main(void)
 {
     char bomb = '*';
+    int mapNum;
     char *buffer;
     element store1,store2;
 
@@ -49,8 +51,10 @@ int main(void)
     store1.power=store2.power=30;
     store1.direction=0,store2.direction=1;
     
-    if((fp=fopen("map5.txt", "r"))==NULL){
-        printf("cannot find map.txt");
+    printf("select map (1,2,3) : ");
+    scanf("%d",&mapNum);
+    if((fp=fopen(mapname[mapNum-1], "r"))==NULL){
+        printf("cannot find %s\n",mapname[mapNum-1]);
         exit(1);
     }
     
@@ -97,7 +101,7 @@ int main(void)
     make_edge();
 
     char1.posX = p1[1];
-    char1.posY = p1[0]-40;
+    char1.posY = p1[0];
     
     char1.hp=3;
     char1.gas=10;
