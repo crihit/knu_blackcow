@@ -15,8 +15,7 @@ void add_rectangle(int Xlength,int Ylength,int posX,int posY,int input){
     
     for(i=0;i<Ylength;i++){
         for(j=0;j<Xlength;j++){
-            move(posY-mposY+i, posX-mposX+j);
-            addch(input);
+            map[posY+i-1][posX+j-1]=input;
         }
     }
 }
@@ -51,6 +50,7 @@ void if_climb(int Xlength,int Ylength,int *posX,int *posY,int direct){
 void if_descent(int Xlength,int Ylength,int *posX,int *posY){
     int i;
     while(1){
+        get_screen(mposX, mposY, msizeX, msizeY);
         for(i=-1;i<=Xlength-2;i++){
             if(map[*posY+Ylength-1][*posX+i]=='#'){
                 return;
@@ -69,7 +69,7 @@ void if_descent(int Xlength,int Ylength,int *posX,int *posY){
     }
 }
 
-void move_char(int *posX, int *posY,int *direct){
+void move_char(int *posX, int *posY,int *direct,character char0){
     int command;
     int x,y;
 
@@ -85,7 +85,7 @@ void move_char(int *posX, int *posY,int *direct){
             if(command=='a')
                 break;
 
-            if(command=='l'&&touch_rectangle(3,2, *posX, *posY,0)){
+            if(command=='l'&&touch_rectangle(3,2, *posX, *posY,0)&&char0.gas>0){
                 if(*posX-MAP_X/2>0 && *posX+MAP_X/2<msizeX){
                     move_screen(command, &mposX, &mposY,msizeX,msizeY);
                 }
@@ -96,8 +96,9 @@ void move_char(int *posX, int *posY,int *direct){
                 *direct=0;
                 add_rectangle(3, 2,*posX,*posY,'o');
                 move(*posY-mposY, *posX-mposX);
+                char0.gas--;
             }
-            if(command=='j'&&touch_rectangle(3,2, *posX, *posY,1)){
+            if(command=='j'&&touch_rectangle(3,2, *posX, *posY,1)&&char0.gas>0){
                 if(*posX-MAP_X/2>0 && *posX+MAP_X/2<msizeX){
                     move_screen(command, &mposX, &mposY,msizeX,msizeY);
                 }
@@ -108,6 +109,7 @@ void move_char(int *posX, int *posY,int *direct){
                 *direct=1;
                 add_rectangle(3, 2,*posX,*posY,'o');
                 move(*posY-mposY, *posX-mposX);
+                char0.gas--;
             }
         }
         if_descent(3, 2, posX, posY);

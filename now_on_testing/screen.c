@@ -51,7 +51,7 @@ void make_edge(){
         move(0,i);
         addch('&');
     }
-    for(i=1;i<=MAP_Y;i++)
+    for(i=1;i<=MAP_Y+10;i++)
     {
         move(i,0);
         addch('&');
@@ -65,4 +65,13 @@ void make_edge(){
         move(MAP_Y+1,i);
         addch('&');
     }
+    
+    move(MAP_Y+11,0);
+    
+    for(i=0;i<=MAP_X+1;i++)
+    {
+        move(MAP_Y+11,i);
+        addch('&');
+    }
+    
 }

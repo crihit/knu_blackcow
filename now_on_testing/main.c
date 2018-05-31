@@ -15,6 +15,7 @@
 
 int mposY=0,mposX=0,msizeX=0,msizeY=0;
 int p1[2], p2[2];
+character char1,char2;
 
 void set_mpos(int posX,int posY){
     if(posY+MAP_Y/2>=msizeY)
@@ -38,9 +39,8 @@ int main(void)
 {
     char bomb = '*';
     char *buffer;
-    float speed;
     element store1,store2;
-    character char1,char2;
+
     int i,j;
     char c;
     FILE *fp;
@@ -96,11 +96,17 @@ int main(void)
     
     make_edge();
 
-        char1.posX = p1[1];
-        char1.posY = p1[0]-40;
+    char1.posX = p1[1];
+    char1.posY = p1[0]-40;
+    
+    char1.hp=3;
+    char1.gas=10;
 
-        char2.posX = p2[1];
-        char2.posY = p2[0];
+    char2.posX = p2[1];
+    char2.posY = p2[0];
+    
+    char2.hp=3;
+    char2.hp=10;
     
     move(char1.posY, char2.posX);
     
@@ -112,20 +118,30 @@ int main(void)
         posY--;
     }
     */
+    set_mpos(char1.posX, char1.posY);
+    if_descent(3, 2, &char1.posX, &char1.posY);
+    set_mpos(char2.posX, char2.posY);
+    if_descent(3, 2, &char2.posX, &char2.posY);
+    sleep(50000);
 
+    
     while(1){
         set_mpos(char1.posX, char1.posY);
-        move_char(&char1.posX,&char1.posY,&store1.direction);//while()문
+        move_char(&char1.posX,&char1.posY,&store1.direction,char1);//while()문
         set_angle_power(char1.posX, char1.posY, &store1);//while()문
         equation(&store1);
         parabola(store1, char1.posX, char1.posY-1, bomb);
+        set_mpos(char1.posX, char1.posY);
+        if_descent(3, 2, &char1.posX, &char1.posY);
         fgets(buffer, 100, stdin);
         
         set_mpos(char2.posX, char2.posY);
-        move_char(&char2.posX,&char2.posY,&store2.direction);//while()문
+        move_char(&char2.posX,&char2.posY,&store2.direction,char2);//while()문
         set_angle_power(char2.posX, char2.posY, &store2);//while()문
         equation(&store2);
         parabola(store2, char2.posX, char2.posY-1, bomb);
+        set_mpos(char2.posX, char2.posY);
+        if_descent(3, 2, &char2.posX, &char2.posY);
         fgets(buffer, 100, stdin);
 
     }
