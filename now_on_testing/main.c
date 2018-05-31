@@ -53,7 +53,7 @@ int main(void)
         store.angle=89.0;
     }*/
     
-    if((fp=fopen("map3.txt", "r"))==NULL){
+    if((fp=fopen("map5.txt", "r"))==NULL){
         printf("cannot find map.txt");
         exit(1);
     }
@@ -119,6 +119,7 @@ int main(void)
         posY--;
     }
     */
+    store.direction=1;
 
     while(1){
         set_mpos(posX, posY);

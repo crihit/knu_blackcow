@@ -45,6 +45,7 @@ void if_climb(int Xlength,int Ylength,int *posX,int *posY,int direct){
         if(map[*posY+Ylength-2][*posX-2]=='#')
             (*posY)--;
     }
+    set_mpos(*posX, *posY);
 }
 
 void if_descent(int Xlength,int Ylength,int *posX,int *posY){
