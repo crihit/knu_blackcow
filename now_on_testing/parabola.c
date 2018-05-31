@@ -50,7 +50,7 @@ void erase_map(int posX, int posY,character *char0,character *char1){
                 (char0->hp)--;
             }
             else if(i==char1->posY&&j==char1->posX){
-                (char0->hp)--;
+                (char1->hp)--;
             }
             map[i][j] = ' ';
         }

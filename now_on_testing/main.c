@@ -133,7 +133,7 @@ int main(void)
         set_mpos(char1.posX, char1.posY);
         if_descent(3, 2, &char1.posX, &char1.posY);
         char1.gas=30;
-        if(char1.hp<=0){
+        if(char1.hp<=0||char2.hp<=0){
             endwin();
             return 0;
         }
@@ -147,7 +147,7 @@ int main(void)
         set_mpos(char2.posX, char2.posY);
         if_descent(3, 2, &char2.posX, &char2.posY);
         char2.gas=30;
-        if(char2.hp<=0){
+        if(char1.hp<=0||char2.hp<=0){
             endwin();
             return 0;
         }
