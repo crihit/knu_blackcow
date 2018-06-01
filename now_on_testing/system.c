@@ -17,7 +17,7 @@ void set_nodelay_mode(){
 
 int get_ok_char(){
     int c;
-    while((c=getchar())!=EOF&&strchr("ikjlas",c)==NULL);
+    while((c=getchar())!=EOF&&strchr("ikjlasdm",c)==NULL);
     return c;
 }
 

@@ -43,10 +43,10 @@ void set_mpos(int,int);
 void move_char(int *posX, int *posY,int *direct,character* char0);
 void set_angle_power(int posX,int posY,element *store);
 void make_edge(/*character *char0,character *char1*/);
-void if_descent(int Xlength,int Ylength,int *posX,int *posY);
+void if_descent(int Xlength,int Ylength,int *posX,int *posY,character char0);
 void add_rectangle(int Xlength,int Ylength,int posX,int posY,int input);
 void make_char_option(character char0);
 void chooses_option(character *char0);
-
+void moving_map(character char0);
 
 extern int mposX,mposY,msizeX,msizeY;

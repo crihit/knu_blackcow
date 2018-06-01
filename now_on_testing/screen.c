@@ -42,6 +42,29 @@ void move_screen(int command,int *posX,int *posY, int mapX, int mapY){
     
 }
 
+void moving_map(character char0){
+    char command;
+    while(1){
+        get_screen(mposX, mposY, msizeX, msizeY);
+        if((command=get_ok_char())!=EOF){
+            if(command=='a'||command=='d'){
+                set_mpos(char0.posX, char0.posY);
+                break;
+            }
+            if(char0.posX-MAP_X/2>0 && char0.posX+MAP_X/2<msizeX&&char0.posY-MAP_Y/2>0&&char0.posY+MAP_Y/2&&(command=='i'||command=='k')){
+                move_screen(command, &mposX, &mposY,msizeX,msizeY);
+                move_screen(command, &mposX, &mposY,msizeX,msizeY);
+            }
+            if(char0.posX-MAP_X/2>0 && char0.posX+MAP_X/2<msizeX&&char0.posY-MAP_Y/2>0&&char0.posY+MAP_Y/2&&(command=='j'||command=='l')){
+                move_screen(command, &mposX, &mposY,msizeX,msizeY);
+                move_screen(command, &mposX, &mposY,msizeX,msizeY);
+                move_screen(command, &mposX, &mposY,msizeX,msizeY);
+            }
+        }
+        refresh();
+    }
+}
+
 void make_char_option(character char0){
     int i,j;
     move(MAP_Y+2, 4);
@@ -57,7 +80,7 @@ void make_char_option(character char0){
     for(i=0;i<char0.range;i++){
         addch('*');
     }
-    for(;i<30;i++){
+    for(;i<50;i++){
         addch(' ');
     }
 

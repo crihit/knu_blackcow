@@ -23,18 +23,17 @@ void chooses_option(character *char0){
         addch('^');
         
         if((command=get_ok_char())!=EOF){
-            if(command=='a'||command=='b'){
+            if(command=='a'||command=='s'){
                 move(MAP_Y+9, 4+choose*20);
                 addch(' ');
+                char0->range=char0->btype[choose].range;
+                char0->power=char0->btype[choose].power;
                 break;
             }
             if(command=='l'){
                 move(MAP_Y+9, 4+choose*20);
                 addch(' ');
                 choose=(choose+1)%4;
-                char0->range=char0->btype[choose].range;
-                char0->power=char0->btype[choose].power;
-                
             }
             else if(command=='j'){
                 move(MAP_Y+9, 4+choose*20);
@@ -42,8 +41,6 @@ void chooses_option(character *char0){
                 choose=(choose-1)%4;
                 if(choose<0)
                     choose=3;
-                char0->range=char0->btype[choose].range;
-                char0->power=char0->btype[choose].power;
             }
         }
         

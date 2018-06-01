@@ -47,7 +47,7 @@ void if_climb(int Xlength,int Ylength,int *posX,int *posY,int direct){
     set_mpos(*posX, *posY);
 }
 
-void if_descent(int Xlength,int Ylength,int *posX,int *posY){
+void if_descent(int Xlength,int Ylength,int *posX,int *posY,character char0){
     int i;
     while(1){
         get_screen(mposX, mposY, msizeX, msizeY);
@@ -63,6 +63,18 @@ void if_descent(int Xlength,int Ylength,int *posX,int *posY){
         usleep(50000);
         set_mpos(*posX, *posY);
         if(*posY>=msizeY){
+            if(char0.btype[0].power==3){
+                move(MAP_Y/2-1, MAP_X/2);
+                addstr("player2 win");
+                refresh();
+                sleep(2);
+            }
+            else{
+                move(MAP_Y/2-1, MAP_X/2);
+                addstr("player1 win");
+                refresh();
+                sleep(2);
+            }
             endwin();
             exit(1);
         }
@@ -84,7 +96,13 @@ void move_char(int *posX, int *posY,int *direct,character* char0){
                 break;
             if(command=='s')
                 chooses_option(char0);
-
+            if(command=='d'){
+                moving_map(*char0);
+            }
+            /*if(command=='m'&&char0->btype[0].power==3){
+                char0->power=10;
+                char0->range=50;
+            }*/
             if(command=='l'&&touch_rectangle(3,2, *posX, *posY,0)&&char0->gas>0){
                 if(*posX-MAP_X/2>0 && *posX+MAP_X/2<msizeX){
                     move_screen(command, &mposX, &mposY,msizeX,msizeY);
@@ -92,7 +110,7 @@ void move_char(int *posX, int *posY,int *direct,character* char0){
                 add_rectangle(3, 2,*posX,*posY,' ');
                 if_climb(3, 2, posX, posY, 0);
                 (*posX)++;
-                if_descent(3, 2, posX, posY);
+                if_descent(3, 2, posX, posY,*char0);
                 *direct=0;
                 add_rectangle(3, 2,*posX,*posY,'o');
                 move(*posY-mposY, *posX-mposX);
@@ -108,7 +126,7 @@ void move_char(int *posX, int *posY,int *direct,character* char0){
                 add_rectangle(3, 2,*posX,*posY,' ');
                 if_climb(3, 2, posX, posY, 1);
                 (*posX)--;
-                if_descent(3, 2, posX, posY);
+                if_descent(3, 2, posX, posY,*char0);
                 *direct=1;
                 add_rectangle(3, 2,*posX,*posY,'o');
                 move(*posY-mposY, *posX-mposX);
@@ -119,7 +137,7 @@ void move_char(int *posX, int *posY,int *direct,character* char0){
             }
             make_char_option(*char0);
         }
-        if_descent(3, 2, posX, posY);
+        if_descent(3, 2, posX, posY,*char0);
         refresh();
     }
 }
