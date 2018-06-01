@@ -39,8 +39,8 @@ void set_mpos(int posX,int posY){
 int main(void)
 {
     char bomb = '*';
-    int mapNum;
-    char buffer[100];
+    int mapNum,gas1,gas2;
+    char buffer[250];
     element store1,store2;
     character char1,char2;
     
@@ -52,9 +52,16 @@ int main(void)
     store1.power=store2.power=30;
     store1.direction=0,store2.direction=1;
     
-    printf("select map (1,2,3) : ");
-    scanf("%d",&mapNum);
-    if((fp=fopen(mapname[mapNum-1], "r"))==NULL){
+    
+    initscr();
+    init_keyboard();
+    set_nodelay_mode();
+    clear();
+    
+    make_edge();
+    how_to_play();
+    chooses_map(&mapNum);
+    if((fp=fopen(mapname[mapNum], "r"))==NULL){
         printf("cannot find %s\n",mapname[mapNum-1]);
         exit(1);
     }
@@ -94,36 +101,19 @@ int main(void)
      if(speed<=24000)
      speed=24000;*/
     
-    initscr();
-    init_keyboard();
-    set_nodelay_mode();
-    clear();
+    print_character();
+    chooses_character(&char1);
+    chooses_character(&char2);
+    gas1=char1.gas;
+    gas2=char2.gas;
     
     char1.posX = p1[1];
     char1.posY = p1[0]-40;
     
-    char1.hp=7;
-    char1.gas=50;
-    char1.btype[0].power=3,char1.btype[0].range=7;
-    char1.btype[1].power=1,char1.btype[1].range=10;
-    char1.btype[2].power=5,char1.btype[2].range=5;
-    char1.btype[3].power=0,char1.btype[3].range=0;
-    char1.range=char1.btype[0].range;
-    char1.power=char1.btype[0].power;
-    
     char2.posX = p2[1];
     char2.posY = p2[0];
     
-    char2.hp=10;
-    char2.gas=30;
-    char2.btype[0].power=2,char2.btype[0].range=8;
-    char2.btype[1].power=0,char2.btype[1].range=13;
-    char2.btype[2].power=4,char2.btype[2].range=6;
-    char2.btype[3].power=0,char2.btype[3].range=0;
-    char2.range=char2.btype[0].range;
-    char2.power=char2.btype[0].power;
     
-    make_edge();
     
     move(char1.posY, char1.posX);
     
@@ -132,6 +122,9 @@ int main(void)
     set_mpos(char2.posX, char2.posY);
     if_descent(3, 2, &char2.posX, &char2.posY);
     sleep(50000);*/
+    
+    
+
     
     add_rectangle(3, 2,char1.posX,char1.posY,'o');
     add_rectangle(3, 2,char2.posX,char2.posY,'o');
@@ -146,7 +139,7 @@ int main(void)
         set_mpos(char1.posX, char1.posY);
         if_descent(3, 2, &char1.posX, &char1.posY,char1);
         refresh();
-        char1.gas=50;
+        char1.gas=gas1;
         if(char1.hp<=0){
             move(MAP_Y/2-1, MAP_X/2);
             addstr("player2 win");
@@ -174,7 +167,7 @@ int main(void)
         set_mpos(char2.posX, char2.posY);
         if_descent(3, 2, &char2.posX, &char2.posY,char2);
         refresh();
-        char2.gas=30;
+        char2.gas=gas2;
         if(char2.hp<=0){
             move(MAP_Y/2-1, MAP_X/2);
             addstr("player1 win");

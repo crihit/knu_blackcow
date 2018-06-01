@@ -47,7 +47,7 @@ void moving_map(character char0){
     while(1){
         get_screen(mposX, mposY, msizeX, msizeY);
         if((command=get_ok_char())!=EOF){
-            if(command=='a'||command=='d'){
+            if(command=='a'){
                 set_mpos(char0.posX, char0.posY);
                 break;
             }

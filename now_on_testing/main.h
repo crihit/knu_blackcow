@@ -30,6 +30,7 @@ struct charact{
 typedef struct coeffient element;
 typedef struct charact character;
 
+void chooses_character(character *char0);
 void set_nodelay_mode();
 int get_ok_char();
 void init_keyboard();
@@ -48,5 +49,8 @@ void add_rectangle(int Xlength,int Ylength,int posX,int posY,int input);
 void make_char_option(character char0);
 void chooses_option(character *char0);
 void moving_map(character char0);
+void print_character();
+void chooses_map(int *mapNum);
+void how_to_play();
 
 extern int mposX,mposY,msizeX,msizeY;

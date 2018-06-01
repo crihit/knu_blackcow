@@ -24,12 +24,12 @@ int touch_rectangle(int Xlength,int Ylength,int posX,int posY,int direct){
     int i;
     if(direct==0){
         for(i=0;i<Ylength-1;i++)
-        if(map[posY-1+i][posX+Xlength-1]=='#')
+        if(map[posY-1+i][posX+Xlength-1]=='#'||map[posY-1+i][posX+Xlength-1]=='o')
             return 0;
     }
     else{
         for(i=0;i<Ylength-1;i++)
-        if(map[posY-1+i][posX-2]=='#')
+        if(map[posY-1+i][posX-2]=='#'||map[posY-1+i][posX-2]=='o')
             return 0;
     }
     return 1;
@@ -99,10 +99,10 @@ void move_char(int *posX, int *posY,int *direct,character* char0){
             if(command=='d'){
                 moving_map(*char0);
             }
-            /*if(command=='m'&&char0->btype[0].power==3){
+            if(command=='m'&&char0->btype[0].power==3){
                 char0->power=10;
                 char0->range=50;
-            }*/
+            }
             if(command=='l'&&touch_rectangle(3,2, *posX, *posY,0)&&char0->gas>0){
                 if(*posX-MAP_X/2>0 && *posX+MAP_X/2<msizeX){
                     move_screen(command, &mposX, &mposY,msizeX,msizeY);
