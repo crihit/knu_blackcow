@@ -16,8 +16,8 @@
 int mposY=0,mposX=0,msizeX=0,msizeY=0;
 int p1[2], p2[2];
 char mapname[5][20] = {"map1.txt","map2.txt","map3.txt"};
-
-
+int turn = 0; // if 0 - player1's turn, if 1 - player2's turn.
+int charColor1, charColor2;
 void set_mpos(int posX,int posY){
     if(posY+MAP_Y/2>=msizeY)
         mposY=msizeY-MAP_Y;
@@ -57,6 +57,14 @@ int main(void)
     init_keyboard();
     set_nodelay_mode();
     clear();
+    start_color();
+    init_pair(1, COLOR_BLACK, 1);
+    init_pair(2, COLOR_BLACK, 2);
+    init_pair(3, COLOR_BLACK, 3);
+    init_pair(4, COLOR_BLACK, 4);
+    init_pair(5, COLOR_BLACK, 5);
+    init_pair(6, COLOR_BLACK, 6);
+
     
     make_edge();
     how_to_play();
@@ -108,12 +116,13 @@ int main(void)
     gas2=char2.gas;
     
     char1.posX = p1[1];
-    char1.posY = p1[0]-40;
+    char1.posY = p1[0];
     
     char2.posX = p2[1];
     char2.posY = p2[0];
     
-    
+    charColor1 = char1.colorType;
+    charColor2 = char2.colorType;
     
     move(char1.posY, char1.posX);
     
@@ -126,10 +135,11 @@ int main(void)
     
 
     
-    add_rectangle(3, 2,char1.posX,char1.posY,'o');
-    add_rectangle(3, 2,char2.posX,char2.posY,'o');
+    add_rectangle(3, 2,char1.posX,char1.posY,char1.color);
+    add_rectangle(3, 2,char2.posX,char2.posY,char2.color);
     
     while(1){
+        turn = 0;
         make_char_option(char1);
         set_mpos(char1.posX, char1.posY);
         move_char(&char1.posX,&char1.posY,&store1.direction,&char1);//while()문
@@ -158,6 +168,7 @@ int main(void)
         }
         scanf("%s",buffer);
         
+        turn = 1;
         make_char_option(char2);
         set_mpos(char2.posX, char2.posY);
         move_char(&char2.posX,&char2.posY,&store2.direction,&char2);//while()문

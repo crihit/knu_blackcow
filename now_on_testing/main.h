@@ -24,6 +24,8 @@ struct charact{
     int gas;
     int range;
     int power;
+    int colorType;
+    char color;
     boption btype[4];
 };
 
@@ -54,3 +56,5 @@ void chooses_map(int *mapNum);
 void how_to_play();
 
 extern int mposX,mposY,msizeX,msizeY;
+extern int turn;
+extern int charColor1, charColor2;

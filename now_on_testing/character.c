@@ -124,6 +124,8 @@ void characterArray(){
     charArray[0].btype[3].power=0,charArray[0].btype[3].range=0;
     charArray[0].range=charArray[0].btype[0].range;
     charArray[0].power=charArray[0].btype[0].power;
+    charArray[0].colorType = 1;
+    charArray[0].color = 'R';
     
     charArray[1].hp=10;
     charArray[1].gas=30;
@@ -133,7 +135,9 @@ void characterArray(){
     charArray[1].btype[3].power=0,charArray[1].btype[3].range=0;
     charArray[1].range=charArray[1].btype[0].range;
     charArray[1].power=charArray[1].btype[0].power;
-    
+    charArray[1].colorType = 2;
+    charArray[1].color = 'G';
+
     charArray[2].hp=20;
     charArray[2].gas=20;
     charArray[2].btype[0].power=2,charArray[2].btype[0].range=4;
@@ -142,7 +146,9 @@ void characterArray(){
     charArray[2].btype[3].power=0,charArray[2].btype[3].range=0;
     charArray[2].range=charArray[2].btype[0].range;
     charArray[2].power=charArray[2].btype[0].power;
-    
+    charArray[2].colorType = 3;
+    charArray[2].color = 'Y';
+
     charArray[3].hp=4;
     charArray[3].gas=40;
     charArray[3].btype[0].power=5,charArray[3].btype[0].range=8;
@@ -151,7 +157,9 @@ void characterArray(){
     charArray[3].btype[3].power=0,charArray[3].btype[3].range=0;
     charArray[3].range=charArray[3].btype[0].range;
     charArray[3].power=charArray[3].btype[0].power;
-    
+    charArray[3].colorType = 4;
+    charArray[3].color = 'B';
+
     charArray[4].hp=13;
     charArray[4].gas=30;
     charArray[4].btype[0].power=1,charArray[4].btype[0].range=8;
@@ -160,7 +168,9 @@ void characterArray(){
     charArray[4].btype[3].power=0,charArray[4].btype[3].range=0;
     charArray[4].range=charArray[4].btype[0].range;
     charArray[4].power=charArray[4].btype[0].power;
-    
+    charArray[4].colorType = 5;
+    charArray[4].color = 'M';
+
     charArray[5].hp=10;
     charArray[5].gas=3;
     charArray[5].btype[0].power=6,charArray[5].btype[0].range=10;
@@ -169,6 +179,8 @@ void characterArray(){
     charArray[5].btype[3].power=1,charArray[5].btype[3].range=20;
     charArray[5].range=charArray[5].btype[0].range;
     charArray[5].power=charArray[5].btype[0].power;
+    charArray[5].colorType = 6;
+    charArray[5].color = 'C';
 }
 
 void chooses_character(character *char0){

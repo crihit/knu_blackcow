@@ -22,7 +22,62 @@ void get_screen(int posX,int posY,int xSize, int ySize){
             if(i+posY>ySize||j+posX>xSize)
                 addch(' ');
             else
-                addch(map[i+posY-1][j+posX-1]);
+            {
+                if(map[i+posY-1][j+posX-1] == 'R')
+                {
+                    //if(turn == 0)
+                    //{
+                        attron(COLOR_PAIR(1));
+                        addch(' ');
+                        attroff(COLOR_PAIR(1));
+                    //}
+                    /*else
+                    {
+                        attron(COLOR_PAIR(charColor2));
+                        addch(' ');
+                        attroff(COLOR_PAIR(charColor2));
+                    }*/
+                }
+                else if(map[i+posY-1][j+posX-1] == 'G')
+                {
+                    attron(COLOR_PAIR(2));
+                    addch(' ');
+                    attroff(COLOR_PAIR(2));
+                    
+                }
+                else if(map[i+posY-1][j+posX-1] == 'Y')
+                {
+                    attron(COLOR_PAIR(3));
+                    addch(' ');
+                    attroff(COLOR_PAIR(3));
+                    
+                }
+                else if(map[i+posY-1][j+posX-1] == 'B')
+                {
+                    attron(COLOR_PAIR(4));
+                    addch(' ');
+                    attroff(COLOR_PAIR(4));
+                    
+                }
+                else if(map[i+posY-1][j+posX-1] == 'M')
+                {
+                    attron(COLOR_PAIR(5));
+                    addch(' ');
+                    attroff(COLOR_PAIR(5));
+                    
+                }
+                else if(map[i+posY-1][j+posX-1] == 'C')
+                {
+                    attron(COLOR_PAIR(6));
+                    addch(' ');
+                    attroff(COLOR_PAIR(6));
+                    
+                }
+                else
+                {
+                    addch(map[i+posY-1][j+posX-1]);
+                }
+            }
         }
     }
     /*if(i==MAP_Y+1&&j==MAP_X+1)
