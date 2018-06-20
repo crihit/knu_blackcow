@@ -73,6 +73,13 @@ void get_screen(int posX,int posY,int xSize, int ySize){
                     attroff(COLOR_PAIR(6));
                     
                 }
+                else if(map[i+posY-1][j+posX-1] == '#')
+                {
+                    attron(COLOR_PAIR(7));
+                    addch(' ');
+                    attroff(COLOR_PAIR(7));
+                    
+                }
                 else
                 {
                     addch(map[i+posY-1][j+posX-1]);
@@ -188,21 +195,29 @@ void make_edge(){
     for(i=0;i<=MAP_X+1;i++)
     {
         move(0,i);
-        addch('&');
+        attron(COLOR_PAIR(6));
+        addch(' ');
+        attroff(COLOR_PAIR(6));
     }
     for(i=1;i<=MAP_Y+10;i++)
     {
         move(i,0);
-        addch('&');
+        attron(COLOR_PAIR(6));
+        addch(' ');
+        attroff(COLOR_PAIR(6));
         move(i,MAP_X+1);
-        addch('&');
+        attron(COLOR_PAIR(6));
+        addch(' ');
+        attroff(COLOR_PAIR(6));
     }
     move(MAP_Y+1,0);
     
     for(i=0;i<=MAP_X+1;i++)
     {
         move(MAP_Y+1,i);
-        addch('&');
+        attron(COLOR_PAIR(6));
+        addch(' ');
+        attroff(COLOR_PAIR(6));
     }
     
     move(MAP_Y+11,0);
@@ -210,6 +225,8 @@ void make_edge(){
     for(i=0;i<=MAP_X+1;i++)
     {
         move(MAP_Y+11,i);
-        addch('&');
+        attron(COLOR_PAIR(6));
+        addch(' ');
+        attroff(COLOR_PAIR(6));
     }
 }

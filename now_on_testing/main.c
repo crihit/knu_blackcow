@@ -64,6 +64,7 @@ int main(void)
     init_pair(4, COLOR_BLACK, 4);
     init_pair(5, COLOR_BLACK, 5);
     init_pair(6, COLOR_BLACK, 6);
+    init_pair(7, COLOR_BLACK, 7);
 
     
     make_edge();

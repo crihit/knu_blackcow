@@ -106,7 +106,7 @@ void move_char(int *posX, int *posY,int *direct,character* char0){
             if(command=='d'){
                 moving_map(*char0);
             }
-            if(command=='m'&&char0->btype[0].power==3){
+            if(command=='m'){
                 char0->power=10;
                 char0->range=50;
             }

@@ -34,7 +34,7 @@ void erase_map(int posX, int posY,character *char0,character *char1,int updown){
                     break;
                 if(pow((i-posY)*2,2)+pow(j-posX, 2)>pow(k, 2))
                     continue;
-                map[i][j] = '@';
+                map[i][j] = 'R';
             }
         }
         for(i = posY-(k-1); i <= posY+(k-1); i++){
@@ -43,7 +43,7 @@ void erase_map(int posX, int posY,character *char0,character *char1,int updown){
                     break;
                 if(pow((i-posY)*2,2)+pow(j-posX, 2)>pow(k-1, 2))
                     continue;
-                map[i][j] = ' ';
+                map[i][j] = 'Y';
             }
         }
         get_screen(mposX, mposY, msizeX, msizeY);
