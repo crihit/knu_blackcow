@@ -133,7 +133,7 @@ void make_char_option(character char0){
     addstr("health point : ");
     for(i=0;i<char0.hp;i++)
         addch('0');
-    for(;i<10;i++){
+    for(;i<50;i++){
         addch(' ');
     }
     
@@ -151,7 +151,7 @@ void make_char_option(character char0){
     for(i=0;i<char0.gas;i++){
         addch('>');
     }
-    for(;i<30;i++){
+    for(;i<50;i++){
         addch(' ');
     }
     
@@ -160,7 +160,7 @@ void make_char_option(character char0){
     for(i=0;i<char0.power;i++){
         addch('+');
     }
-    for(;i<30;i++){
+    for(;i<50;i++){
         addch(' ');
     }
     
@@ -173,7 +173,7 @@ void make_char_option(character char0){
         for(i=0;i<char0.btype[j].range;i++){
             addch('*');
         }
-        for(;i<5;i++){
+        for(;i<50;i++){
             addch(' ');
         }
         move(MAP_Y+8, 4+j*20);
@@ -181,7 +181,7 @@ void make_char_option(character char0){
         for(i=0;i<char0.btype[j].power;i++){
             addch('+');
         }
-        for(;i<5;i++){
+        for(;i<50;i++){
             addch(' ');
         }
 
