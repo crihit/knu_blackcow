@@ -68,7 +68,7 @@ void if_descent(int Xlength,int Ylength,int *posX,int *posY,character char0){
         usleep(50000);
         set_mpos(*posX, *posY);
         if(*posY>=msizeY){
-            if(char0.btype[0].power==3){
+            if(char0.playerNum==1){
                 move(MAP_Y/2-1, MAP_X/2);
                 addstr("player2 win");
                 refresh();

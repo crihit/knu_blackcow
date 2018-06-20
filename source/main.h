@@ -18,6 +18,7 @@ struct bomb_option{
 typedef struct bomb_option boption;
 
 struct charact{
+    int playerNum;
     int posX;
     int posY;
     int hp;

@@ -118,9 +118,11 @@ int main(void)
     
     char1.posX = p1[1];
     char1.posY = p1[0];
+    char1.playerNum = 1;
     
     char2.posX = p2[1];
     char2.posY = p2[0];
+    char2.playerNum = 2;
     
     charColor1 = char1.colorType;
     charColor2 = char2.colorType;
