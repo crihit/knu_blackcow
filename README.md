@@ -22,3 +22,23 @@ Fix buffer problems.
 # 2018.05.30
 Improved explosion effect.
 Health point and movement distance limitation added.
+
+# 2018.05.31
+Add Bomb Option.
+Add Moving Skill.
+Modify some bug.
+
+# 2018.06.01
+Add How to Play and Character Option.
+
+# 2018.06.04
+Add Color System.
+
+# 2018.06.18
+Add position mark
+
+# 2018.06.20
+Finish color option.
+
+End of Project.
+-----------------
